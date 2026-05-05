@@ -7,7 +7,7 @@ static const Block blocks[] = {
 
 	{"💿", 	"~/scripts/jt-disk",		60,		0},
 
-	{"",	"~/scripts/mod_memory.sh",		30,		0},
+	{"🧠",	"~/scripts/jt-memory.sh",		30,		0},
 
 	{"🕛", 	"~/scripts/jt-clock",		5,		0},
 };

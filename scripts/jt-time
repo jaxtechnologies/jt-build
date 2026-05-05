@@ -1,0 +1,4 @@
+#!/bin/sh
+# Update time for dwmblocks
+date '+%I:%M %p '
+

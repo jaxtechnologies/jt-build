@@ -7,7 +7,7 @@ static const Block blocks[] = {
 
 	{"🧠",	"~/scripts/jt-memory",		30,		0},
 
-	{"", 	"~/scripts/jt-date",		5,		0},
+	{"📅", 	"~/scripts/jt-date",		5,		0},
 
 	{"🕛", 	"~/scripts/jt-time",		5,		0},
 

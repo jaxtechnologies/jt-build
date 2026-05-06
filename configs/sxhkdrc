@@ -4,6 +4,9 @@ super + shift + b
 super + shift + e
   mousepad
 
+super + shift + l
+  slock
+
 super + shift + w
   sxiv ~/wallpapers
 

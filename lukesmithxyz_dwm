@@ -43,39 +43,39 @@ sleep 10
 
 clear
 
-###cp -r $INSTALL_PATH/dwm-6.5-patched ~/dwm 2>&1 | tee -a $LOG
-git clone https://github.com/lukesmithxyz/dwm ~/dwm
-cd ~/dwm
+cp -r $INSTALL_PATH/src/lukesmithxyz/dwm ~/.config/dwm 2>&1 | tee -a $LOG
+###git clone https://github.com/lukesmithxyz/dwm ~/dwm
+cd ~/.config/dwm
 echo "Compiling dwm - Dynamic Window Manager"
-sudo make clean install
+sudo make install
 echo "Compiling dwm - Complete"
 sleep 10
 
 clear
 
-###cp -r $INSTALL_PATH/dmenu-5.3 ~/dmenu 2>&1 | tee -a $LOG
-git clone https://github.com/lukesmithxyz/dmenu ~/dmenu
-cd ~/dmenu
+cp -r $INSTALL_PATH/src/lukesmithxyz/dmenu ~/.config/dmenu 2>&1 | tee -a $LOG
+###git clone https://github.com/lukesmithxyz/dmenu ~/dmenu
+cd ~/.config/dmenu
 echo "Compiling dmenu - Dynamic Menu"
-sudo make clean install
+sudo make install
 echo "Compiling dmenu - Complete"
 sleep 10
 
 clear
 
-###cp -r $INSTALL_PATH/st-0.9.1 ~/st 2>&1 | tee -a $LOG
-git clone https://github.com/lukesmithxyz/st ~/st
-cd ~/st
+cp -r $INSTALL_PATH/src/lukesmithxyz/st ~/.config/st 2>&1 | tee -a $LOG
+###git clone https://github.com/lukesmithxyz/st ~/st
+cd ~/.config/st
 echo "Compiling st - Simple Terminal"
-sudo make clean install
+sudo make install
 echo "Compiling st - Complete"
 sleep 10
 
 clear
 
-###cp -r $INSTALL_PATH/dwmblocks ~/dwmblocks 2>&1 | tee -a $LOG
-git clone https://github.com/lukesmithxyz/dwmblocks ~/dwmblocks
-cd ~/dwmblocks
+cp -r $INSTALL_PATH/src/lukesmithxyz/dwmblocks ~/.config/dwmblocks 2>&1 | tee -a $LOG
+###git clone https://github.com/lukesmithxyz/dwmblocks ~/dwmblocks
+cd ~/.config/dwmblocks
 echo "Compiling dwmblocks - Modular status bar"
 make && sudo make install
 echo "Compiling dwmblocks - Complete"
@@ -88,19 +88,6 @@ echo "Please enter sudo password if requested..."
 echo ""
 sleep 5
 
-##### wallpapers -- Make sure wallpapers directory exists or add wallpapers if it doesn't exist
-[ ! -d ~/wallpapers ] && mkdir -p ~/wallpapers 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/wallpapers/* ~/wallpapers/ 2>&1 | tee -a $LOG
-
-##### sxhkd -- Make sure sxhkd directory exists and add config files neccessary to use
-[ ! -d ~/.config/sxhkd ] && mkdir -p ~/.config/sxhkd 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/keybindings ~/keybindings 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/sxhkdrc ~/.config/sxhkd/ 2>&1 | tee -a $LOG
-
-##### dunst -- Make sure dunst directory exists and add config files neccessary to use notification daemon
-[ ! -d ~/.config/dunst ] && mkdir -p ~/.config/dunst 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/dunstrc ~/.config/dunst/ 2>&1 | tee -a $LOG
-
 ##### scripts -- Make sure scripts directory exists and add scripts if it doesn't exist
 [ ! -d ~/scripts ] && mkdir -p ~/scripts 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/scripts/* ~/scripts/ 2>&1 | tee -a $LOG
@@ -110,16 +97,6 @@ cp $INSTALL_PATH/scripts/* ~/scripts/ 2>&1 | tee -a $LOG
 [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
 sudo cp $INSTALL_PATH/configs/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
 
-##### fish -- Make sure fish directory exists and add users config.fish file and change shell to fish
-[ ! -d ~/.config/fish ] && mkdir -p ~/.config/fish 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/config.fish ~/.config/fish/ 2>&1 | tee -a $LOG
-chsh -s /bin/fish
-
-##### sxiv -- Make sure ~/.config/sxiv/exec directory exists and add key-handler file
-[ ! -d ~/.trash ] && mkdir -p ~/.trash 2>&1 | tee -a $LOG
-[ ! -d ~/.config/sxiv/exec ] && mkdir -p ~/.config/sxiv/exec 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/key-handler ~/.config/sxiv/exec/ 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/gxmessage_wallpaper ~/gxmessage_wallpaper 2>&1 | tee -a $LOG
 
 ##### .vimrc & init.vim -- Add .vimrc file to $HOME directory and init.vim file to neovim config
 [ ! -d ~/.config/nvim ] && mkdir -p ~/.config/nvim/ 2>&1 | tee -a $LOG

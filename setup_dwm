@@ -50,7 +50,7 @@ if [[ -f /etc/os-release ]]; then
     # Check for regular Arch Linux
     elif [[ "$ID" == "arch" ]]; then
         echo "Arch Linux detected."
-        echo "No action needed."
+        #echo "No action needed."
 
     else
         echo "Unsupported distribution: $NAME"
@@ -72,7 +72,7 @@ error_handler() {
 trap 'error_handler' ERR
 
 sudo pacman -Syu fish eza fastfetch git vim neovim gcc make base-devel pkgconf xorg xorg-xinit feh gxmessage sxiv python-pywal terminus-font ttf-mononoki-nerd noto-fonts-emoji \
-lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad figlet sxhkd slock dunst xwallpaper calcurse gtk3-nocsd-git
+lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad figlet sxhkd slock dunst xwallpaper calcurse
 sleep 10
 
 clear

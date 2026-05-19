@@ -332,7 +332,7 @@ echo "Dotfiles Copy Complete"
 	echo "$rssurls" | sudo -u "$name" tee "/home/$name/.config/newsboat/urls" >/dev/null
 
 # Install vim plugins if not alread present.
-[ ! -f "/home/$name/.config/nvim/autoload/plug.vim" ] && vimplugininstall
+#[ ! -f "/home/$name/.config/nvim/autoload/plug.vim" ] && vimplugininstall
 
 # Most important command! Get rid of the beep!
 rmmod pcspkr

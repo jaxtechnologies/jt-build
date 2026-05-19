@@ -6,6 +6,8 @@
 
 ### OPTIONS AND VARIABLES ###
 INSTALL_PATH=$(pwd)
+LOG=$INSTALL_PATH/dwm_setup.log
+rm $LOG > /dev/null 2>&1
 
 dotfilesrepo=$INSTALL_PATH/dotfiles/
 progsfile=$INSTALL_PATH/apps.csv
@@ -284,12 +286,14 @@ installationloop
 
 # Install the dotfiles in the user's home directory, but remove .git dir and
 # other unnecessary files.
-cp -r $dotfilesrepo/.* ~/ 2>&1 | tee -a $LOG
-#cp -r $INSTALL_PATH/dotfiles/.local/* ~/.local/ 2>&1 | tee -a $LOG
-#cp -r $INSTALL_PATH/dotfiles/.gitmodules ~/ 2>&1 | tee -a $LOG
-#cp -r $INSTALL_PATH/dotfiles/.gtkrc-2.0 ~/ 2>&1 | tee -a $LOG
-#cp -r $INSTALL_PATH/dotfiles/.xprofile ~/ 2>&1 | tee -a $LOG
-#cp -r $INSTALL_PATH/dotfiles/.zprofile ~/ 2>&1 | tee -a $LOG
+[ ! -d ~/.config ] && mkdir -p ~/.config 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.config/* ~/.config/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.local/* ~/.local/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.gitmodules ~/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.gtkrc-2.0 ~/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.xprofile ~/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.zprofile ~/ 2>&1 | tee -a $LOG
+echo "Dotfiles Copy Complete"
 #putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
 #rm -rf "/home/$name/.git/" "/home/$name/README.md" "/home/$name/LICENSE" "/home/$name/FUNDING.yml"
 

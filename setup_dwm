@@ -44,7 +44,7 @@ sleep 10
 clear
 
 [ ! -d ~/.local/src ] && mkdir -p ~/.local/src 2>&1 | tee -a $LOG
-cp -r $INSTALL_PATH/src/lukesmithxyz/dwm ~/.local/src/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dwm ~/.local/src/ 2>&1 | tee -a $LOG
 ###git clone https://github.com/lukesmithxyz/dwm ~/.local/src/dwm
 cd ~/.local/src/dwm
 echo "Compiling dwm - Dynamic Window Manager"
@@ -54,7 +54,7 @@ sleep 10
 
 clear
 
-cp -r $INSTALL_PATH/src/lukesmithxyz/dmenu ~/.local/src/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dmenu ~/.local/src/ 2>&1 | tee -a $LOG
 ###git clone https://github.com/lukesmithxyz/dmenu ~/.local/src/dmenu
 cd ~/.local/src/dmenu
 echo "Compiling dmenu - Dynamic Menu"
@@ -64,7 +64,7 @@ sleep 10
 
 clear
 
-cp -r $INSTALL_PATH/src/lukesmithxyz/st ~/.local/src/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/st ~/.local/src/ 2>&1 | tee -a $LOG
 ###git clone https://github.com/lukesmithxyz/st ~/.local/src/st
 cd ~/.local/src/st
 echo "Compiling st - Simple Terminal"
@@ -74,7 +74,7 @@ sleep 10
 
 clear
 
-cp -r $INSTALL_PATH/src/lukesmithxyz/dwmblocks ~/.local/src/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dwmblocks ~/.local/src/ 2>&1 | tee -a $LOG
 ###git clone https://github.com/lukesmithxyz/dwmblocks ~/.local/src/dwmblocks
 cd ~/.local/src/dwmblocks
 echo "Compiling dwmblocks - Modular status bar"
@@ -84,12 +84,12 @@ sleep 10
 
 clear
 
-cp -r $INSTALL_PATH/src/lukesmithxyz/dotfiles/.config/* ~/.config/ 2>&1 | tee -a $LOG
-cp -r $INSTALL_PATH/src/lukesmithxyz/dotfiles/.local/* ~/.local/ 2>&1 | tee -a $LOG
-cp -r $INSTALL_PATH/src/lukesmithxyz/dotfiles/.gitmodules ~/ 2>&1 | tee -a $LOG
-cp -r $INSTALL_PATH/src/lukesmithxyz/dotfiles/.gtkrc-2.0 ~/ 2>&1 | tee -a $LOG
-cp -r $INSTALL_PATH/src/lukesmithxyz/dotfiles/.xprofile ~/ 2>&1 | tee -a $LOG
-cp -r $INSTALL_PATH/src/lukesmithxyz/dotfiles/.zprofile ~/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.config/* ~/.config/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.local/* ~/.local/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.gitmodules ~/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.gtkrc-2.0 ~/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.xprofile ~/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dotfiles/.zprofile ~/ 2>&1 | tee -a $LOG
 echo "Dotfiles Copy Complete"
 sleep 10
 
@@ -107,23 +107,14 @@ cp $INSTALL_PATH/wallpapers/* ~/wallpapers/ 2>&1 | tee -a $LOG
 ##### xsessions -- Make sure xsessions directory exists and add dwm.desktop file
 ##### This file allows users to select DWM as a session option when logging into their system through a display manager.
 [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
-sudo cp $INSTALL_PATH/src/jaxtech/.config/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
+sudo cp $INSTALL_PATH/dotfiles/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
 chsh -s /bin/zsh
 #chsh -s /bin/fish
 
-##### sxiv -- Make sure ~/.config/sxiv/exec directory exists and add key-handler file
-[ ! -d ~/.trash ] && mkdir -p ~/.trash 2>&1 | tee -a $LOG
-[ ! -d ~/.config/sxiv/exec ] && mkdir -p ~/.config/sxiv/exec 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/key-handler ~/.config/sxiv/exec/ 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/gxmessage_wallpaper ~/gxmessage_wallpaper 2>&1 | tee -a $LOG
-
 ##### .vimrc & init.vim -- Add .vimrc file to $HOME directory and init.vim file to neovim config
 [ ! -d ~/.config/nvim ] && mkdir -p ~/.config/nvim/ 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/.vimrc ~/.config/nvim/init.vim 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/.vimrc ~/ 2>&1 | tee -a $LOG
-
-##### .xprofile -- Add file for .xprofile to home directory to launch wallpaper via feh and exec dwm on login
-cp $INSTALL_PATH/configs/.xprofile ~/.xprofile 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/dotfiles/.vimrc ~/.config/nvim/init.vim 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/dotfiles/.vimrc ~/ 2>&1 | tee -a $LOG
 
 ##### lightdm -- Enable and start lightdm
 echo "Enabling and starting lightdm..."

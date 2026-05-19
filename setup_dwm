@@ -71,8 +71,9 @@ error_handler() {
 
 trap 'error_handler' ERR
 
-sudo pacman -Syu fish eza fastfetch git vim neovim gcc make base-devel pkgconf xorg xorg-xinit feh gxmessage sxiv python-pywal terminus-font ttf-mononoki-nerd noto-fonts-emoji \
-lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad figlet sxhkd slock dunst xwallpaper calcurse xcompmgr
+sudo pacman -Syu fish eza fastfetch git vim neovim gcc make base-devel pkgconf xorg xorg-xinit feh gxmessage sxiv python-pywal \
+terminus-font ttf-mononoki-nerd noto-fonts-emoji lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad figlet sxhkd \
+slock dunst xwallpaper calcurse xcompmgr zathura
 sleep 10
 
 clear

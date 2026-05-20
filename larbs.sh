@@ -221,14 +221,14 @@ putgitrepo() {
 	sudo -u "$name" cp -rfT "$dir" "$2"
 }
 
-vimplugininstall() {
-	# Installs vim plugins.
-	whiptail --infobox "Installing neovim plugins..." 7 60
-	mkdir -p "/home/$name/.config/nvim/autoload"
-	curl -Ls "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" >  "/home/$name/.config/nvim/autoload/plug.vim"
-	chown -R "$name:wheel" "/home/$name/.config/nvim"
-	sudo -u "$name" nvim -c "PlugInstall|q|q"
-}
+#vimplugininstall() {
+#	# Installs vim plugins.
+#	whiptail --infobox "Installing neovim plugins..." 7 60
+#	mkdir -p "/home/$name/.config/nvim/autoload"
+#	curl -Ls "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" >  "/home/$name/.config/nvim/autoload/plug.vim"
+#	chown -R "$name:wheel" "/home/$name/.config/nvim"
+#	sudo -u "$name" nvim -c "PlugInstall|q|q"
+#}
 
 makeuserjs(){
 	# Get the Arkenfox user.js and prepare it.
@@ -317,6 +317,7 @@ installationloop
 # Install the dotfiles in the user's home directory, but remove .git dir and
 # other unnecessary files.
 [ ! -d ~/.config ] && mkdir -p ~/.config 2>&1 | tee -a $LOG
+[ ! -d ~/.local ] && mkdir -p ~/.local 2>&1 | tee -a $LOG
 cp -r $INSTALL_PATH/dotfiles/.config/* ~/.config/ 2>&1 | tee -a $LOG
 cp -r $INSTALL_PATH/dotfiles/.local/* ~/.local/ 2>&1 | tee -a $LOG
 cp -r $INSTALL_PATH/dotfiles/.gitmodules ~/ 2>&1 | tee -a $LOG
@@ -324,6 +325,7 @@ cp -r $INSTALL_PATH/dotfiles/.gtkrc-2.0 ~/ 2>&1 | tee -a $LOG
 cp -r $INSTALL_PATH/dotfiles/.xprofile ~/ 2>&1 | tee -a $LOG
 cp -r $INSTALL_PATH/dotfiles/.zprofile ~/ 2>&1 | tee -a $LOG
 echo "Dotfiles Copy Complete"
+sleep 20
 #putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
 #rm -rf "/home/$name/.git/" "/home/$name/README.md" "/home/$name/LICENSE" "/home/$name/FUNDING.yml"
 

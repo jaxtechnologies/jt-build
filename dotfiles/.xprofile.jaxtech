@@ -1,5 +1,0 @@
-feh --bg-fill ~/wallpapers/04_odin_dark.jpg &
-dwmblocks &
-dunst &
-sxhkd &
-exec dwm

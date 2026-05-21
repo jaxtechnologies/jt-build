@@ -1,18 +1,11 @@
 #!/bin/sh
 
-# Luke's Auto Rice Bootstrapping Script (LARBS)
-# by Luke Smith <luke@lukesmith.xyz>
+# Jax|Tech's Build Script
+# by JaxTechnologies
+# Modeled after LukeSmith's LARBS Install
 # License: GNU GPLv3
 
-# Function to check for root
-check_root() {
-    if [[ $EUID -ne 0 ]]; then
-        echo "This script must be run as root... Run the following command:  sudo sh jaxtech_build.sh"
-        exit 1
-    fi
-}
-
-### OPTIONS AND VARIABLES ###
+##### OPTIONS AND VARIABLES #####
 dotfilesrepo="https://github.com/jaxtechnologies/jt-dotfiles.git"
 progsfile="https://raw.githubusercontent.com/jaxtechnologies/jt-build/master/apps_dwm.csv"
 aurhelper="yay"
@@ -31,24 +24,33 @@ https://www.archlinux.org/feeds/news/ \"tech\"
 https://github.com/LukeSmithxyz/voidrice/commits/master.atom \"~LARBS dotfiles\""
 
 
-clear
+##### FUNCTIONS #####
 
-echo -ne "
-   ████████╗  █████╗  ██╗   ██╗  ████████╗ ███████╗  ██████╗ ██╗  ██╗
-   ╚══██╔══╝ ██╔══██╗  ██╗ ██╔╝  ╚══██╔══╝ ██╔════╝ ██╔════╝ ██║  ██║
-      ██║    ███████║   ████╔╝      ██║    ███████╗ ██║      ███████║
-   ██ ██║    ██╔══██║  ██╔╝██╗      ██║    ██╔════╝ ██║      ██╔══██║
-   ╚███╔╝    ██║  ██║ ██╔╝  ██╗     ██║    ███████╗ ╚██████╗ ██║  ██║
-    ╚══╝     ╚═╝  ╚═╝ ╚═╝   ╚═╝     ╚═╝    ╚══════╝  ╚═════╝ ╚═╝  ╚═╝
-"
-echo ""
-echo " Jax|Tech Setup Script will launch in 5 seconds..."
+jt_splash() {
+	clear
 
-sleep 5
+	echo -ne "
+	   ████████╗  █████╗  ██╗   ██╗  ████████╗ ███████╗  ██████╗ ██╗  ██╗
+	   ╚══██╔══╝ ██╔══██╗  ██╗ ██╔╝  ╚══██╔══╝ ██╔════╝ ██╔════╝ ██║  ██║
+	      ██║    ███████║   ████╔╝      ██║    ███████╗ ██║      ███████║
+	   ██ ██║    ██╔══██║  ██╔╝██╗      ██║    ██╔════╝ ██║      ██╔══██║
+	   ╚███╔╝    ██║  ██║ ██╔╝  ██╗     ██║    ███████╗ ╚██████╗ ██║  ██║
+	    ╚══╝     ╚═╝  ╚═╝ ╚═╝   ╚═╝     ╚═╝    ╚══════╝  ╚═════╝ ╚═╝  ╚═╝
+	"
+	echo ""
+	echo " Jax|Tech Setup Script will launch in 5 seconds..."
+	
+	sleep 5
+	
+	clear
+}
 
-clear
-
-### FUNCTIONS ###
+check_root() {
+    if [[ $EUID -ne 0 ]]; then
+        echo "This script must be run as root... Run the following command:  sudo sh jaxtech_build.sh"
+        exit 1
+    fi
+}
 
 installpkg() {
 	pacman --noconfirm --needed -S "$1" >/dev/null 2>&1
@@ -242,12 +244,13 @@ finalize() {
 		--msgbox "Congrats! Provided there were no hidden errors, the script completed successfully and all the programs and configuration files should be in place.\\n\\nTo run the new graphical environment, log out and log back in as your new user, then run the command \"startx\" to start the graphical environment (it will start automatically in tty1).\\n\\n.t Luke" 13 80
 }
 
-### THE ACTUAL SCRIPT ###
+##### THE ACTUAL SCRIPT #####
 
 ### This is how everything happens in an intuitive format and order.
 
 # Check if user is root on Arch distro. Install whiptail.
 check_root
+jt_splash
 pacman -Syu
 pacman --noconfirm --needed -Sy libnewt ||
 	error "Are you sure you're running this as the root user, are on an Arch-based distribution and have an internet connection?"

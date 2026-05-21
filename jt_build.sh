@@ -315,9 +315,6 @@ rm -rf "/home/$name/.git/" "/home/$name/README.md" "/home/$name/LICENSE" "/home/
 [ -s "/home/$name/.config/newsboat/urls" ] ||
 	echo "$rssurls" | sudo -u "$name" tee "/home/$name/.config/newsboat/urls" >/dev/null
 
-# Install vim plugins if not alread present.
-#[ ! -f "/home/$name/.config/nvim/autoload/plug.vim" ] && vimplugininstall
-
 # Most important command! Get rid of the beep!
 rmmod pcspkr
 echo "blacklist pcspkr" >/etc/modprobe.d/nobeep.conf

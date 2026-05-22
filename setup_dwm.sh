@@ -1,5 +1,3 @@
-##### PACKAGES
-gxmessage
 
 terminus-font
 ttf-mononoki-nerd 

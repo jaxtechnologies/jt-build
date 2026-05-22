@@ -2,10 +2,7 @@
 gxmessage
 
 terminus-font
-ttf-mononoki-nerd
-
-lightdm
-lightdm-gtk-greeter 
+ttf-mononoki-nerd 
 
 openssh
 firefox

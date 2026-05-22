@@ -3,11 +3,6 @@ terminus-font
 ttf-mononoki-nerd 
 
 openssh
-firefox
-qutebrowser
-mousepad
-figlet
-sxhkd
 
 ##### openssh -- Enable and start openssh
 echo "Enabling and starting openssh..."

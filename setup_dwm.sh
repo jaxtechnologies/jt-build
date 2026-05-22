@@ -16,32 +16,6 @@ cp $INSTALL_PATH/wallpapers/* ~/wallpapers/ 2>&1 | tee -a $LOG
 [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
 sudo cp $INSTALL_PATH/dotfiles/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
 
-# Detect distro from /etc/os-release to establish preferred shell
-if [[ -f /etc/os-release ]]; then
-    . /etc/os-release
-
-    # Check for Archcraft
-    if [[ "$ID" == "archcraft" ]] || [[ "$NAME" == *"Archcraft"* ]]; then
-        echo "Archcraft detected."
-        echo "Setting zsh as preferred shell"
-        chsh -s /bin/zsh
-
-    # Check for regular Arch Linux
-    elif [[ "$ID" == "arch" ]]; then
-        echo "Arch Linux detected."
-        echo "Setting fish as preferred shell"
-        chsh -s /bin/fish
-
-    else
-        echo "Unsupported distribution: $NAME"
-    fi
-else
-    echo "Cannot determine Linux distribution."
-    exit 1
-fi
-
-##### .vimrc -- Add .vimrc file to $HOME directory
-cp $INSTALL_PATH/dotfiles/.vimrc ~/ 2>&1 | tee -a $LOG
 
 ##### openssh -- Enable and start openssh
 echo "Enabling and starting openssh..."

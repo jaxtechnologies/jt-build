@@ -240,7 +240,7 @@ makeuserjs(){
 	chown "$name:wheel" "$arkenfox" "$userjs"
 }
 
-lightdm_install() {
+lightdm_start() {
 sudo systemctl enable lightdm
 sudo systemctl start lightdm
 }
@@ -387,3 +387,6 @@ rm -f /etc/sudoers.d/jaxtech-temp
 
 # Last message! Install complete!
 finalize
+
+# Enable and start lightdm
+lightdm_start

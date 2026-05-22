@@ -1,6 +1,6 @@
 ##### PACKAGES
-fish eza fastfetch git vim neovim gcc make base-devel pkgconf xorg
-feh gxmessage sxiv python-pywal \
+fish eza git vim neovim gcc make base-devel pkgconf xorg
+feh gxmessage sxiv 
 terminus-font ttf-mononoki-nerd noto-fonts-emoji lightdm lightdm-gtk-greeter 
 openssh firefox qutebrowser mousepad figlet sxhkd \
 

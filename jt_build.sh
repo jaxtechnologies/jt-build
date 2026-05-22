@@ -268,7 +268,7 @@ finalize() {
 # Check if user is root on Arch distro. Update and Install whiptail.
 check_root
 jt_splash
-pacman -Syu
+pacman --noconfirm -Syu
 pacman --noconfirm --needed -Sy libnewt ||
 	error "Are you sure you're running this as the root user, are on an Arch-based distribution and have an internet connection?"
 

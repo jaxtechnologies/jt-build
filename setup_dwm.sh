@@ -1,9 +1,22 @@
 ##### PACKAGES
-git gcc make base-devel pkgconf xorg
-feh gxmessage sxiv 
-terminus-font ttf-mononoki-nerd noto-fonts-emoji lightdm lightdm-gtk-greeter 
-openssh firefox qutebrowser mousepad figlet sxhkd \
+xorg
+feh
+gxmessage
+sxiv 
 
+terminus-font
+ttf-mononoki-nerd
+noto-fonts-emoji
+
+lightdm
+lightdm-gtk-greeter 
+
+openssh
+firefox
+qutebrowser
+mousepad
+figlet
+sxhkd
 
 ##### wallpapers -- Make sure wallpapers directory exists or add wallpapers if it doesn't exist
 [ ! -d ~/wallpapers ] && mkdir -p ~/wallpapers 2>&1 | tee -a $LOG

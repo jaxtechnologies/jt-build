@@ -74,11 +74,11 @@ error() {
 
 welcomemsg() {
 	whiptail --title "Welcome!" \
-		--msgbox "Welcome to Luke's Auto-Rice Bootstrapping Script!\\n\\nThis script will automatically install a fully-featured Linux desktop, which I use as my main machine.\\n\\n-Luke" 10 60
+		--msgbox "Welcome to Jax|Tech's Build Script!\\n\\nThis script will automatically install a fully-featured Linux desktop, which I use as my main machine.\\n" 10 60
 
-	whiptail --title "Important Note!" --yes-button "All ready!" \
-		--no-button "Return..." \
-		--yesno "Be sure the computer you are using has current pacman updates and refreshed Arch keyrings.\\n\\nIf it does not, the installation of some programs might fail." 8 70
+	#whiptail --title "Important Note!" --yes-button "All ready!" \
+	#	--no-button "Return..." \
+	#	--yesno "Be sure the computer you are using has current pacman updates and refreshed Arch keyrings.\\n\\nIf it does not, the installation of some programs might fail." 8 70
 }
 
 getuserandpass() {

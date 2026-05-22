@@ -1,12 +1,9 @@
 ##### PACKAGES
-xorg
-feh
 gxmessage
 sxiv 
 
 terminus-font
 ttf-mononoki-nerd
-noto-fonts-emoji
 
 lightdm
 lightdm-gtk-greeter 

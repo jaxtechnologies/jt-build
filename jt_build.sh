@@ -241,7 +241,7 @@ makeuserjs(){
 }
 
 gituserrice(){
-	git clone https://github.com/jaxtechnologies/wallpapers.git /home/$name/
+	git clone https://github.com/jaxtechnologies/jt-wallpapers.git /home/$name/
 	sleep 10
 }
 

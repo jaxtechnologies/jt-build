@@ -55,7 +55,7 @@ jt_splash() {
 	    ╚══╝     ╚═╝  ╚═╝ ╚═╝   ╚═╝     ╚═╝    ╚══════╝  ╚═════╝ ╚═╝  ╚═╝
 	"
 	echo ""
-	echo " Jax|Tech Setup Script will launch in 5 seconds..."
+	echo "       Jax|Tech Build Script will launch in 5 seconds..."
 	
 	sleep 5
 	

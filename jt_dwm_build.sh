@@ -256,6 +256,13 @@ sudo systemctl enable lightdm
 sudo systemctl start lightdm
 }
 
+openssh_start() {
+##### openssh -- Enable and start openssh
+sudo systemctl enable sshd
+sudo systemctl start sshd
+sudo ufw allow ssh
+}
+
 finalize() {
 	whiptail --title "All done!" \
 		--msgbox "Congrats! Provided there were no hidden errors, the script completed successfully and all the programs and configuration files should be in place.\\n\\nTo run the new graphical environment, log out and log back in as your new user, then run the command \"startx\" to start the graphical environment (it will start automatically in tty1).\\n\\n.t Luke" 13 80
@@ -396,11 +403,14 @@ echo "kernel.dmesg_restrict = 0" > /etc/sysctl.d/dmesg.conf
 # Cleanup
 rm -f /etc/sudoers.d/jaxtech-temp
 
-# Last message! Install complete!
-finalize
-
 # Git User Rice Files
 gituserrice
 
 # Enable and start lightdm
 lightdm_start
+
+# Enable and start sshd
+openssh_start
+
+# Last message! Install complete!
+finalize

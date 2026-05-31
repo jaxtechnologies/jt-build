@@ -157,14 +157,17 @@ install_cosmic () {
 
 install_gnome () {
 	remove_current_desktop
+	sleep 10
+	sudo pacman -Syu --noconfirm
 	##### gnome-extra will install a lot of the gnome suite of apps...
-	sudo pacman -Syu gnome cachyos-gnome-settings --needed --noconfirm
-    sleep 5
+	sudo pacman -S gnome cachyos-gnome-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+    sleep 10
 	cp -r /etc/skel/.config ~/.config
+	sudo systemctl enable lightdm
     clear
     echo ""
     echo " Gnome installed. Please reboot and select Gnome Session from the login screen to start using it."
-    sleep 20
+    sleep 10
     exit_menu
 }
 

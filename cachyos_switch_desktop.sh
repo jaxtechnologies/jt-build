@@ -173,13 +173,16 @@ install_gnome () {
 
 install_i3 () {
 	remove_current_desktop
-	sudo pacman -Syu i3-wm i3status cachyos-i3wm-settings --needed --noconfirm
-    sleep 5
+	sleep 10
+	sudo pacman -Syu --noconfirm
+ 	sudo pacman -S i3-wm i3status cachyos-i3wm-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+    sleep 10
 	cp -r /etc/skel/.config ~/.config
+	sudo systemctl enable lightdm
     clear
     echo ""
     echo " i3 installed. Please reboot and select i3 Session from the login screen to start using it."
-    sleep 20
+    sleep 10
     exit_menu
 }
 

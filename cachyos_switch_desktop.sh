@@ -118,7 +118,7 @@ remove_qtile () {
 
 install_cinnamon () {
 	remove_current_desktop
-	sleep 10
+	clear
 	sudo pacman -Syu --noconfirm
 	sudo pacman -S cinnamon gnome-terminal nemo-fileroller lightdm lightdm-gtk-greeter --needed --noconfirm
     sleep 10

@@ -244,7 +244,9 @@ install_qtile () {
 }
 
 exit_menu () {
-clear
+echo ""
+echo " Script Complete"
+echo ""
 exit
 }
 

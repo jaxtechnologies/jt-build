@@ -190,7 +190,7 @@ install_kde () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S plasma-desktop discover cachyos-kde-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+	sudo pacman -S plasma-desktop discover flatpak cachyos-kde-settings lightdm lightdm-gtk-greeter --needed --noconfirm
     sleep 10
 	cp -r /etc/skel/.config ~/.config
 	sudo systemctl enable lightdm

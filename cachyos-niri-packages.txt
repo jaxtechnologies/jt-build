@@ -1,42 +1,4 @@
-a52dec aalib abseil-cpp accountsservice acl adw-gtk-theme adwaita-cursors adwaita-fonts adwaita-icon-theme adwaita-icon-theme-legacy alacritty alsa-card-profiles alsa-firmware alsa-lib alsa-plugins alsa-topology-conf alsa-ucm-conf alsa-utils ananicy-cpp aom appstream archlinux-keyring aribb24 aribb25 at-spi2-core attr audit autoconf automake avahi awesome-terminal-fonts base base-devel bash bash-completion bat bind binutils bison bluez bluez-hid2hci bluez-libs bluez-obex bluez-utils boost-libs bpf brightnessctl brotli btop btrfs-progs bubblewrap bzip2 ca-certificates ca-certificates-mozilla ca-certificates-utils cachyos-alacritty-config cachyos-ananicy-rules cachyos-fish-config cachyos-grub-theme cachyos-hello cachyos-hooks cachyos-kernel-manager cachyos-keyring cachyos-micro-settings cachyos-mirrorlist cachyos-niri-noctalia cachyos-packageinstaller cachyos-plymouth-bootanimation cachyos-plymouth-theme cachyos-rate-mirrors cachyos-settings cachyos-v3-mirrorlist cachyos-v4-mirrorlist cachyos-wallpapers cachyos-zsh-config cairo cairomm-1.16 cantarell-fonts capitaine-cursors chromaprint chwd cifs-utils clang compiler-rt confuse coreutils cpio cpupower cryptsetup curl dav1d db5.3 dbus dbus-broker dbus-broker-units dbus-units dconf debugedit default-cursors desktop-file-utils device-mapper diffutils ding-libs dmidecode dmraid dnsmasq dnssec-anchors dosfstools double-conversion duf duktape e2fsprogs efibootmgr efitools efivar elfutils ell ethtool exempi exfatprogs exiv2 expac expat eza f2fs-tools faac faad2 fakeroot fastfetch fd ffmpeg ffmpegthumbnailer fftw file filesystem findutils firefox fish fish-autopair fish-pure-prompt fisher flac flex fluidsynth fmt fontconfig freeglut freetype2 fribidi fsarchiver ftgl fuse-common fuse3 fzf gawk gc gcc gcc-libs gcr gcr-4 gdb gdb-common gdbm gdk-pixbuf2 gettext gexiv2 giflib git glances glew glib-networking glib2 glibc glibmm-2.68 glm glslang glu glycin glycin-gtk4 gmp gnome-autoar gnome-desktop-4 gnome-desktop-common gnome-keyring gnulib-l10n gnupg gnutls gobject-introspection-runtime gperftools gpgme gpgmepp gpm graphene graphite grep groff grub grub-hook gsettings-desktop-schemas gsettings-system-schemas gsm gssdp gssproxy gst-libav gst-plugin-pipewire gst-plugin-va gst-plugins-bad gst-plugins-bad-libs gst-plugins-base-libs gst-plugins-ugly gstreamer gtest gtk-update-icon-cache gtk3 gtk4 gtkmm-4.0 gtksourceview4 guile gupnp gupnp-dlna gupnp-igd gvfs gzip harfbuzz hdparm hicolor-icon-theme hidapi highway hwdata hwdetect hwinfo iana-etc icu imagemagick imath imlib2 inetutils intel-ucode inxi iproute2 iptables iputils iso-codes iw iwd jack2 jansson jbigkit jemalloc jfsutils jq json-c json-glib kbd keyutils kmod krb5 l-smash lame lcms2 ldb leancrypto less lib32-brotli lib32-bzip2 lib32-clang lib32-curl lib32-e2fsprogs lib32-expat lib32-gcc-libs lib32-glibc lib32-gmp lib32-gnutls lib32-icu lib32-json-c lib32-keyutils lib32-krb5 lib32-libdisplay-info lib32-libdrm lib32-libelf lib32-libffi lib32-libgcrypt lib32-libglvnd lib32-libgpg-error lib32-libidn2 lib32-libldap lib32-libnghttp2 lib32-libnghttp3 lib32-libngtcp2 lib32-libpciaccess lib32-libpsl lib32-libssh2 lib32-libtasn1 lib32-libunistring lib32-libx11 lib32-libxau lib32-libxcb lib32-libxcrypt lib32-libxdmcp lib32-libxext lib32-libxml2 lib32-libxshmfence lib32-libxxf86vm lib32-llvm-libs lib32-lm_sensors lib32-mesa lib32-ncurses lib32-nettle lib32-opencl-mesa lib32-openssl lib32-p11-kit lib32-spirv-llvm-translator lib32-spirv-tools lib32-systemd lib32-vulkan-icd-loader lib32-vulkan-intel lib32-vulkan-mesa-implicit-layers lib32-wayland lib32-xcb-util-keysyms lib32-xz lib32-zlib-ng lib32-zlib-ng-compat lib32-zstd libadwaita libaio 
-
-
-libarchive
-libasan
-libass
-libassuan
-libasyncns
-libatasmart
-libatomic
-libavc1394
-libavtp
-libb2
-libblockdev
-libblockdev-crypto
-libblockdev-fs
-libblockdev-loop
-libblockdev-mdraid
-libblockdev-nvme
-libblockdev-part
-libblockdev-smart
-libblockdev-swap
-libbluray
-libbpf
-libbs2b
-libbsd
-libbytesize
-libcaca
-libcanberra
-libcap
-libcap-ng
-libcddb
-libcdio
-libcdio-paranoia
-libclc
-libcloudproviders
-libcolord
-libcue
-libcups
+a52dec aalib abseil-cpp accountsservice acl adw-gtk-theme adwaita-cursors adwaita-fonts adwaita-icon-theme adwaita-icon-theme-legacy alacritty alsa-card-profiles alsa-firmware alsa-lib alsa-plugins alsa-topology-conf alsa-ucm-conf alsa-utils ananicy-cpp aom appstream archlinux-keyring aribb24 aribb25 at-spi2-core attr audit autoconf automake avahi awesome-terminal-fonts base base-devel bash bash-completion bat bind binutils bison bluez bluez-hid2hci bluez-libs bluez-obex bluez-utils boost-libs bpf brightnessctl brotli btop btrfs-progs bubblewrap bzip2 ca-certificates ca-certificates-mozilla ca-certificates-utils cachyos-alacritty-config cachyos-ananicy-rules cachyos-fish-config cachyos-grub-theme cachyos-hello cachyos-hooks cachyos-kernel-manager cachyos-keyring cachyos-micro-settings cachyos-mirrorlist cachyos-niri-noctalia cachyos-packageinstaller cachyos-plymouth-bootanimation cachyos-plymouth-theme cachyos-rate-mirrors cachyos-settings cachyos-v3-mirrorlist cachyos-v4-mirrorlist cachyos-wallpapers cachyos-zsh-config cairo cairomm-1.16 cantarell-fonts capitaine-cursors chromaprint chwd cifs-utils clang compiler-rt confuse coreutils cpio cpupower cryptsetup curl dav1d db5.3 dbus dbus-broker dbus-broker-units dbus-units dconf debugedit default-cursors desktop-file-utils device-mapper diffutils ding-libs dmidecode dmraid dnsmasq dnssec-anchors dosfstools double-conversion duf duktape e2fsprogs efibootmgr efitools efivar elfutils ell ethtool exempi exfatprogs exiv2 expac expat eza f2fs-tools faac faad2 fakeroot fastfetch fd ffmpeg ffmpegthumbnailer fftw file filesystem findutils firefox fish fish-autopair fish-pure-prompt fisher flac flex fluidsynth fmt fontconfig freeglut freetype2 fribidi fsarchiver ftgl fuse-common fuse3 fzf gawk gc gcc gcc-libs gcr gcr-4 gdb gdb-common gdbm gdk-pixbuf2 gettext gexiv2 giflib git glances glew glib-networking glib2 glibc glibmm-2.68 glm glslang glu glycin glycin-gtk4 gmp gnome-autoar gnome-desktop-4 gnome-desktop-common gnome-keyring gnulib-l10n gnupg gnutls gobject-introspection-runtime gperftools gpgme gpgmepp gpm graphene graphite grep groff grub grub-hook gsettings-desktop-schemas gsettings-system-schemas gsm gssdp gssproxy gst-libav gst-plugin-pipewire gst-plugin-va gst-plugins-bad gst-plugins-bad-libs gst-plugins-base-libs gst-plugins-ugly gstreamer gtest gtk-update-icon-cache gtk3 gtk4 gtkmm-4.0 gtksourceview4 guile gupnp gupnp-dlna gupnp-igd gvfs gzip harfbuzz hdparm hicolor-icon-theme hidapi highway hwdata hwdetect hwinfo iana-etc icu imagemagick imath imlib2 inetutils intel-ucode inxi iproute2 iptables iputils iso-codes iw iwd jack2 jansson jbigkit jemalloc jfsutils jq json-c json-glib kbd keyutils kmod krb5 l-smash lame lcms2 ldb leancrypto less lib32-brotli lib32-bzip2 lib32-clang lib32-curl lib32-e2fsprogs lib32-expat lib32-gcc-libs lib32-glibc lib32-gmp lib32-gnutls lib32-icu lib32-json-c lib32-keyutils lib32-krb5 lib32-libdisplay-info lib32-libdrm lib32-libelf lib32-libffi lib32-libgcrypt lib32-libglvnd lib32-libgpg-error lib32-libidn2 lib32-libldap lib32-libnghttp2 lib32-libnghttp3 lib32-libngtcp2 lib32-libpciaccess lib32-libpsl lib32-libssh2 lib32-libtasn1 lib32-libunistring lib32-libx11 lib32-libxau lib32-libxcb lib32-libxcrypt lib32-libxdmcp lib32-libxext lib32-libxml2 lib32-libxshmfence lib32-libxxf86vm lib32-llvm-libs lib32-lm_sensors lib32-mesa lib32-ncurses lib32-nettle lib32-opencl-mesa lib32-openssl lib32-p11-kit lib32-spirv-llvm-translator lib32-spirv-tools lib32-systemd lib32-vulkan-icd-loader lib32-vulkan-intel lib32-vulkan-mesa-implicit-layers lib32-wayland lib32-xcb-util-keysyms lib32-xz lib32-zlib-ng lib32-zlib-ng-compat lib32-zstd libadwaita libaio libarchive libasan libass libassuan libasyncns libatasmart libatomic libavc1394 libavtp libb2 libblockdev libblockdev-crypto libblockdev-fs libblockdev-loop libblockdev-mdraid libblockdev-nvme libblockdev-part libblockdev-smart libblockdev-swap libbluray libbpf libbs2b libbsd libbytesize libcaca libcanberra libcap libcap-ng libcddb libcdio libcdio-paranoia libclc libcloudproviders libcolord libcue libcups 
 
 
 

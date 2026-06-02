@@ -1,49 +1,8 @@
-a52dec aalib abseil-cpp accountsservice acl adw-gtk-theme adwaita-cursors adwaita-fonts adwaita-icon-theme adwaita-icon-theme-legacy alacritty alsa-card-profiles alsa-firmware alsa-lib alsa-plugins alsa-topology-conf alsa-ucm-conf alsa-utils ananicy-cpp aom appstream archlinux-keyring aribb24 aribb25 at-spi2-core attr audit autoconf automake avahi awesome-terminal-fonts base base-devel bash bash-completion bat bind binutils bison bluez bluez-hid2hci bluez-libs bluez-obex bluez-utils boost-libs bpf brightnessctl brotli btop btrfs-progs bubblewrap bzip2 ca-certificates ca-certificates-mozilla ca-certificates-utils cachyos-alacritty-config cachyos-ananicy-rules cachyos-fish-config cachyos-grub-theme cachyos-hello cachyos-hooks cachyos-kernel-manager cachyos-keyring cachyos-micro-settings cachyos-mirrorlist cachyos-niri-noctalia cachyos-packageinstaller cachyos-plymouth-bootanimation cachyos-plymouth-theme cachyos-rate-mirrors cachyos-settings cachyos-v3-mirrorlist cachyos-v4-mirrorlist cachyos-wallpapers cachyos-zsh-config cairo cairomm-1.16 cantarell-fonts capitaine-cursors chromaprint chwd cifs-utils clang compiler-rt confuse coreutils cpio cpupower cryptsetup curl dav1d db5.3 dbus dbus-broker dbus-broker-units dbus-units dconf debugedit default-cursors desktop-file-utils device-mapper diffutils ding-libs dmidecode dmraid dnsmasq dnssec-anchors dosfstools double-conversion duf duktape e2fsprogs efibootmgr efitools efivar elfutils ell ethtool exempi exfatprogs exiv2 expac expat eza f2fs-tools faac faad2 fakeroot fastfetch fd ffmpeg ffmpegthumbnailer fftw file filesystem findutils firefox fish fish-autopair fish-pure-prompt fisher flac flex fluidsynth fmt fontconfig freeglut freetype2 fribidi fsarchiver ftgl fuse-common fuse3 fzf gawk gc gcc gcc-libs gcr gcr-4 gdb gdb-common gdbm gdk-pixbuf2 gettext gexiv2 giflib git glances glew glib-networking glib2 glibc glibmm-2.68 glm glslang glu glycin glycin-gtk4 gmp gnome-autoar gnome-desktop-4 gnome-desktop-common gnome-keyring gnulib-l10n gnupg gnutls gobject-introspection-runtime gperftools gpgme gpgmepp gpm graphene graphite grep groff grub grub-hook gsettings-desktop-schemas gsettings-system-schemas gsm gssdp gssproxy gst-libav gst-plugin-pipewire gst-plugin-va gst-plugins-bad gst-plugins-bad-libs gst-plugins-base-libs gst-plugins-ugly gstreamer gtest gtk-update-icon-cache gtk3 gtk4 gtkmm-4.0 gtksourceview4 guile gupnp gupnp-dlna gupnp-igd gvfs gzip harfbuzz hdparm hicolor-icon-theme hidapi highway hwdata hwdetect hwinfo iana-etc icu imagemagick imath imlib2 inetutils intel-ucode inxi iproute2 iptables iputils iso-codes iw iwd jack2 jansson jbigkit jemalloc jfsutils jq json-c json-glib kbd keyutils kmod krb5 l-smash lame lcms2 ldb leancrypto less lib32-brotli lib32-bzip2 lib32-clang lib32-curl lib32-e2fsprogs lib32-expat lib32-gcc-libs lib32-glibc lib32-gmp lib32-gnutls lib32-icu lib32-json-c lib32-keyutils lib32-krb5 lib32-libdisplay-info lib32-libdrm lib32-libelf lib32-libffi lib32-libgcrypt lib32-libglvnd lib32-libgpg-error lib32-libidn2 lib32-libldap lib32-libnghttp2 lib32-libnghttp3 lib32-libngtcp2 lib32-libpciaccess lib32-libpsl lib32-libssh2 lib32-libtasn1 lib32-libunistring lib32-libx11 lib32-libxau lib32-libxcb lib32-libxcrypt lib32-libxdmcp lib32-libxext lib32-libxml2 lib32-libxshmfence lib32-libxxf86vm lib32-llvm-libs lib32-lm_sensors lib32-mesa lib32-ncurses lib32-nettle lib32-opencl-mesa lib32-openssl lib32-p11-kit lib32-spirv-llvm-translator lib32-spirv-tools lib32-systemd lib32-vulkan-icd-loader lib32-vulkan-intel lib32-vulkan-mesa-implicit-layers lib32-wayland lib32-xcb-util-keysyms lib32-xz lib32-zlib-ng lib32-zlib-ng-compat lib32-zstd libadwaita libaio libarchive libasan libass libassuan libasyncns libatasmart libatomic libavc1394 libavtp libb2 libblockdev libblockdev-crypto libblockdev-fs libblockdev-loop libblockdev-mdraid libblockdev-nvme libblockdev-part libblockdev-smart libblockdev-swap libbluray libbpf libbs2b libbsd libbytesize libcaca libcanberra libcap libcap-ng libcddb libcdio libcdio-paranoia libclc libcloudproviders libcolord libcue libcups 
+a52dec aalib abseil-cpp accountsservice acl adw-gtk-theme adwaita-cursors adwaita-fonts adwaita-icon-theme adwaita-icon-theme-legacy alacritty alsa-card-profiles alsa-firmware alsa-lib alsa-plugins alsa-topology-conf alsa-ucm-conf alsa-utils ananicy-cpp aom appstream archlinux-keyring aribb24 aribb25 at-spi2-core attr audit autoconf automake avahi awesome-terminal-fonts base base-devel bash bash-completion bat bind binutils bison bluez bluez-hid2hci bluez-libs bluez-obex bluez-utils boost-libs bpf brightnessctl brotli btop btrfs-progs bubblewrap bzip2 ca-certificates ca-certificates-mozilla ca-certificates-utils cachyos-alacritty-config cachyos-ananicy-rules cachyos-fish-config cachyos-grub-theme cachyos-hello cachyos-hooks cachyos-kernel-manager cachyos-keyring cachyos-micro-settings cachyos-mirrorlist cachyos-niri-noctalia cachyos-packageinstaller cachyos-plymouth-bootanimation cachyos-plymouth-theme cachyos-rate-mirrors cachyos-settings cachyos-v3-mirrorlist cachyos-v4-mirrorlist cachyos-wallpapers cachyos-zsh-config cairo cairomm-1.16 cantarell-fonts capitaine-cursors chromaprint chwd cifs-utils clang compiler-rt confuse coreutils cpio cpupower cryptsetup curl dav1d db5.3 dbus dbus-broker dbus-broker-units dbus-units dconf debugedit default-cursors desktop-file-utils device-mapper diffutils ding-libs dmidecode dmraid dnsmasq dnssec-anchors dosfstools double-conversion duf duktape e2fsprogs efibootmgr efitools efivar elfutils ell ethtool exempi exfatprogs exiv2 expac expat eza f2fs-tools faac faad2 fakeroot fastfetch fd ffmpeg ffmpegthumbnailer fftw file filesystem findutils firefox fish fish-autopair fish-pure-prompt fisher flac flex fluidsynth fmt fontconfig freeglut freetype2 fribidi fsarchiver ftgl fuse-common fuse3 fzf gawk gc gcc gcc-libs gcr gcr-4 gdb gdb-common gdbm gdk-pixbuf2 gettext gexiv2 giflib git glances glew glib-networking glib2 glibc glibmm-2.68 glm glslang glu glycin glycin-gtk4 gmp gnome-autoar gnome-desktop-4 gnome-desktop-common gnome-keyring gnulib-l10n gnupg gnutls gobject-introspection-runtime gperftools gpgme gpgmepp gpm graphene graphite grep groff grub grub-hook gsettings-desktop-schemas gsettings-system-schemas gsm gssdp gssproxy gst-libav gst-plugin-pipewire gst-plugin-va gst-plugins-bad gst-plugins-bad-libs gst-plugins-base-libs gst-plugins-ugly gstreamer gtest gtk-update-icon-cache gtk3 gtk4 gtkmm-4.0 gtksourceview4 guile gupnp gupnp-dlna gupnp-igd gvfs gzip harfbuzz hdparm hicolor-icon-theme hidapi highway hwdata hwdetect hwinfo iana-etc icu imagemagick imath imlib2 inetutils intel-ucode inxi iproute2 iptables iputils iso-codes iw iwd jack2 jansson jbigkit jemalloc jfsutils jq json-c json-glib kbd keyutils kmod krb5 l-smash lame lcms2 ldb leancrypto less lib32-brotli lib32-bzip2 lib32-clang lib32-curl lib32-e2fsprogs lib32-expat lib32-gcc-libs lib32-glibc lib32-gmp lib32-gnutls lib32-icu lib32-json-c lib32-keyutils lib32-krb5 lib32-libdisplay-info lib32-libdrm lib32-libelf lib32-libffi lib32-libgcrypt lib32-libglvnd lib32-libgpg-error lib32-libidn2 lib32-libldap lib32-libnghttp2 lib32-libnghttp3 lib32-libngtcp2 lib32-libpciaccess lib32-libpsl lib32-libssh2 lib32-libtasn1 lib32-libunistring lib32-libx11 lib32-libxau lib32-libxcb lib32-libxcrypt lib32-libxdmcp lib32-libxext lib32-libxml2 lib32-libxshmfence lib32-libxxf86vm lib32-llvm-libs lib32-lm_sensors lib32-mesa lib32-ncurses lib32-nettle lib32-opencl-mesa lib32-openssl lib32-p11-kit lib32-spirv-llvm-translator lib32-spirv-tools lib32-systemd lib32-vulkan-icd-loader lib32-vulkan-intel lib32-vulkan-mesa-implicit-layers lib32-wayland lib32-xcb-util-keysyms lib32-xz lib32-zlib-ng lib32-zlib-ng-compat lib32-zstd libadwaita libaio libarchive libasan libass libassuan libasyncns libatasmart libatomic libavc1394 libavtp libb2 libblockdev libblockdev-crypto libblockdev-fs libblockdev-loop libblockdev-mdraid libblockdev-nvme libblockdev-part libblockdev-smart libblockdev-swap libbluray libbpf libbs2b libbsd libbytesize libcaca libcanberra libcap libcap-ng libcddb libcdio libcdio-paranoia libclc libcloudproviders libcolord libcue libcups libdaemon libdatrie libdc1394 libdca libde265 libdecor libdeflate libdisplay-info libdovi libdrm libdv libdvbpsi libdvdcss libdvdnav libdvdread libebml libebur128 libedit libei libelf libepoxy libevdev libevent libexif libfdk-aac libffi libfontenc libfreeaptx libftdi libfyaml libgcc libgcrypt libgfortran libgirepository libgit2 libglvnd libgme libgomp libgoom2 libgpg-error libgsf libgudev 
 
 
 
-libdaemon 0.14-6
-libdatrie 0.2.14-1
-libdc1394 2.2.7-2
-libdca 0.0.7-3
-libde265 1.1.0-1
-libdecor 0.2.5-1
-libdeflate 1.25-1
-libdisplay-info 0.3.0-1
-libdovi 3.3.2-1
-libdrm 2.4.133-1
-libdv 1.0.0-12
-libdvbpsi 1:1.3.3-4
-libdvdcss 1.5.0-1
-libdvdnav 7.0.0-1
-libdvdread 7.0.1-1
-libebml 1.4.5-2
-libebur128 1.2.6-2
-libedit 20260512_3.1-1
-libei 1.6.0-1
-libelf 0.195-1
-libepoxy 1.5.10-3
-libevdev 1.13.6-1
-libevent 2.1.12-5
-libexif 0.6.26-1
-libfdk-aac 2.0.3-2
-libffi 3.5.2-1
-libfontenc 1.1.9-1
-libfreeaptx 0.2.2-1
-libftdi 1.5-10
-libfyaml 0.9.6-2
-libgcc 16.1.1+r12+g301eb08fa2c5-1
-libgcrypt 1.12.2-1
-libgfortran 16.1.1+r12+g301eb08fa2c5-1
-libgirepository 1.86.0-2
-libgit2 1:1.9.4-1
-libglvnd 1.7.0-3
-libgme 0.6.5-1
-libgomp 16.1.1+r12+g301eb08fa2c5-1
-libgoom2 2k4-5
-libgpg-error 1.61-1
-libgsf 1.14.58-1
-libgudev 238-3
+
 libgxps 0.3.2-5
 libical 4.0.2-1
 libice 1.1.2-1
@@ -245,6 +204,8 @@ lv2 1.18.10-2
 lvm2 2.03.41-1
 lz4 1:1.10.0-2
 lzo 2.10-5
+
+
 m4 1.4.21-2
 mailcap 2.1.54-2
 make 4.4.1-3
@@ -266,6 +227,8 @@ mpfr 4.2.2-1
 mpg123 1.33.5-1
 mtdev 1.1.7-1
 mtools 1:4.0.49-1
+
+
 nano 9.0-1
 nano-syntax-highlighting 2025.07.01.r0.g256995b-2
 nautilus 50.2.2-1
@@ -290,6 +253,9 @@ npth 1.8-1
 nspr 4.39-1
 nss 3.124-1
 nss-mdns 0.15.1-2
+
+
+
 ocl-icd 2.3.4-1
 oh-my-zsh-git r7425.7ed475cb5-1
 oniguruma 6.9.10-1
@@ -307,6 +273,9 @@ opus 1.6.1-1
 orc 0.4.42-1
 os-prober 1.84-1
 osinfo-db 20251212-1
+
+
+
 p11-kit 0.26.2-1
 pacman 7.1.0.r9.g54d9411-3
 pacman-contrib 1.13.1-2.1
@@ -391,6 +360,9 @@ python-pydantic-core 3:2.46.4-1
 python-shtab 1.8.0-2
 python-typing-inspection 0.4.2-2
 python-typing_extensions 4.15.0-3
+
+
+
 qrencode 4.1.1-4
 qt6-base 6.11.1-1
 qt6-declarative 6.11.1-2
@@ -399,6 +371,9 @@ qt6-multimedia-ffmpeg 6.11.1-1
 qt6-svg 6.11.1-1
 qt6-translations 6.11.1-1
 qt6-wayland 6.11.1-1
+
+
+
 raptor 2.0.16-9
 rate-mirrors 0.28.3-2
 rav1e 0.8.1-2
@@ -411,6 +386,9 @@ rsync 3.4.3-1
 rtkit 0.14-1
 rtmpdump 1:2.6-2
 rubberband 4.0.0-2
+
+
+
 s-nail 14.9.25-1
 sbc 2.2-1
 scx-manager 1.15.11-1
@@ -457,6 +435,9 @@ systemd 260.2-2
 systemd-libs 260.2-2
 systemd-resolvconf 260.2-2
 systemd-sysvcompat 260.2-2
+
+
+
 taglib 2.3-1
 talloc 2.4.4-1
 tar 1.35-2
@@ -478,6 +459,9 @@ ttf-meslo-nerd 3.4.0-2
 ttf-opensans 3.003-1
 twolame 0.4.0-4
 tzdata 2026b-1
+
+
+
 uchardet 0.0.8-4
 udisks2 2.11.1-2
 ufw 0.36.2-7
@@ -489,6 +473,8 @@ usb_modeswitch 2.6.2.20251207-1
 usbutils 019-1
 util-linux 2.42.1-1
 util-linux-libs 2.42.1-1
+
+
 v4l-utils 1.32.0-2
 vapoursynth 75-3
 vid.stab 1.1.1-2
@@ -575,6 +561,8 @@ volume_key 0.3.12-12
 vulkan-icd-loader 1.4.350.0-1
 vulkan-intel 2:26.1.1-1
 vulkan-mesa-implicit-layers 2:26.1.1-1
+
+
 wayland 1.25.0-1
 webrtc-audio-processing-1 1.3-5
 wget 1.25.0-5
@@ -618,6 +606,8 @@ xwayland-satellite 0.8.1-2
 xxhash 0.8.3-1
 xz 5.8.3-1
 yyjson 0.12.0-1
+
+
 zbar 0.23.93-5
 zeromq 4.3.5-3
 zimg 3.0.6-1

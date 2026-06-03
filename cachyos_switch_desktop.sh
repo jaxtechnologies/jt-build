@@ -129,10 +129,12 @@ install_cinnamon () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S cinnamon gnome-terminal nemo-fileroller lightdm lightdm-gtk-greeter --needed --noconfirm
+	#sudo pacman -S cinnamon gnome-terminal nemo-fileroller lightdm lightdm-gtk-greeter --needed --noconfirm
+	sudo pacman -S cinnamon gnome-terminal nemo-fileroller sddm --needed --noconfirm
     sleep 10
 	cp -r /etc/skel/.config ~/.config
-	sudo systemctl enable lightdm
+	#sudo systemctl enable lightdm
+	sudo systemctl enable sddm
     clear
     echo ""
     echo " Cinnamon installed. Please reboot and select Cinnamon Session from the login screen to start using it."
@@ -144,10 +146,12 @@ install_cosmic () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S cosmic-session cosmic-text-editor cosmic-terminal cosmic-store lightdm lightdm-gtk-greeter --needed --noconfirm
+	#sudo pacman -S cosmic-session cosmic-text-editor cosmic-terminal cosmic-store lightdm lightdm-gtk-greeter --needed --noconfirm
+	sudo pacman -S cosmic-session cosmic-text-editor cosmic-terminal cosmic-store sddm --needed --noconfirm
     sleep 10
 	cp -r /etc/skel/.config ~/.config
-	sudo systemctl enable lightdm
+	#sudo systemctl enable lightdm
+	sudo systemctl enable sddm
     clear
     echo ""
     echo " Cosmic installed. Please reboot and select Cosmic Session from the login screen to start using it."
@@ -160,10 +164,12 @@ install_gnome () {
 	sleep 10
 	sudo pacman -Syu --noconfirm
 	##### gnome-extra will install a lot of the gnome suite of apps...
-	sudo pacman -S gnome cachyos-gnome-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+	#sudo pacman -S gnome cachyos-gnome-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+	sudo pacman -S gnome cachyos-gnome-settings sddm --needed --noconfirm
     sleep 10
 	cp -r /etc/skel/.config ~/.config
-	sudo systemctl enable lightdm
+	#sudo systemctl enable lightdm
+	sudo systemctl enable sddm
     clear
     echo ""
     echo " Gnome installed. Please reboot and select Gnome Session from the login screen to start using it."
@@ -175,10 +181,12 @@ install_i3 () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
- 	sudo pacman -S i3-wm i3status cachyos-i3wm-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+ 	#sudo pacman -S i3-wm i3status cachyos-i3wm-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+	sudo pacman -S i3-wm i3status cachyos-i3wm-settings sddm --needed --noconfirm
     sleep 10
 	cp -r /etc/skel/.config ~/.config
-	sudo systemctl enable lightdm
+	#sudo systemctl enable lightdm
+	sudo systemctl enable sddm
     clear
     echo ""
     echo " i3 installed. Please reboot and select i3 Session from the login screen to start using it."
@@ -190,10 +198,12 @@ install_kde () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S plasma-desktop discover dolphin konsole flatpak cachyos-kde-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+	#sudo pacman -S plasma-desktop discover dolphin konsole flatpak cachyos-kde-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+	sudo pacman -S plasma-desktop discover dolphin konsole flatpak cachyos-kde-settings sddm --needed --noconfirm
     sleep 10
 	cp -r /etc/skel/.config ~/.config
-	sudo systemctl enable lightdm
+	#sudo systemctl enable lightdm
+	sudo systemctl enable sddm
     clear
     echo ""
     echo " KDE Plasma installed. Please reboot and select KDE Plasma Session from the login screen to start using it."
@@ -205,10 +215,13 @@ install_niri () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S niri xwayland-satellite cachyos-niri-noctalia lightdm lightdm-gtk-greeter --needed --noconfirm
+	#sudo pacman -S niri xwayland-satellite cachyos-niri-noctalia lightdm lightdm-gtk-greeter --needed --noconfirm
+	sudo pacman -S niri xwayland-satellite cachyos-niri-noctalia sddm --needed --noconfirm
     sleep 10
 	cp -r /etc/skel/.config ~/.config
-	sudo systemctl enable lightdm
+	sleep 20
+	#sudo systemctl enable lightdm
+	sudo systemctl enable sddm
     clear
     echo ""
     echo " Niri installed. Please reboot and select Niri Session from the login screen to start using it."

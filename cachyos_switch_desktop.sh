@@ -144,11 +144,9 @@ install_cosmic () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	#sudo pacman -S cosmic-session cosmic-text-editor cosmic-terminal cosmic-store lightdm lightdm-gtk-greeter --needed --noconfirm
 	sudo pacman -S cosmic-session cosmic-text-editor cosmic-terminal cosmic-store sddm --needed --noconfirm
     sleep 10
 	rsync -a /etc/skel/.config ~/
-	#sudo systemctl enable lightdm
 	sudo systemctl enable sddm
     clear
     echo ""

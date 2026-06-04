@@ -132,7 +132,8 @@ install_cinnamon () {
 	#sudo pacman -S cinnamon gnome-terminal nemo-fileroller lightdm lightdm-gtk-greeter --needed --noconfirm
 	sudo pacman -S cinnamon gnome-terminal nemo-fileroller sddm --needed --noconfirm
     sleep 10
-	cp -r /etc/skel/.config ~/.config
+	#cp -r /etc/skel/.config ~/.config
+	rsync -a /etc/skel/.config ~/
 	#sudo systemctl enable lightdm
 	sudo systemctl enable sddm
     clear

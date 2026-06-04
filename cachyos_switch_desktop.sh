@@ -222,7 +222,7 @@ install_niri () {
 	rsync -a /etc/skel/.config ~/.config
 	sleep 20
 	#sudo systemctl enable lightdm
-	sudo systemctl enable sddm
+	#sudo systemctl enable sddm
     clear
     echo ""
     echo " Niri installed. Please reboot and select Niri Session from the login screen to start using it."

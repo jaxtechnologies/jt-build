@@ -218,7 +218,8 @@ install_niri () {
 	#sudo pacman -S niri xwayland-satellite cachyos-niri-noctalia lightdm lightdm-gtk-greeter --needed --noconfirm
 	sudo pacman -S niri xwayland-satellite cachyos-niri-noctalia sddm --needed --noconfirm
     sleep 10
-	cp -r /etc/skel/.config ~/.config
+	#cp -r /etc/skel/.config ~/.config
+	rsync -a /etc/skel/.config ~/.config
 	sleep 20
 	#sudo systemctl enable lightdm
 	sudo systemctl enable sddm

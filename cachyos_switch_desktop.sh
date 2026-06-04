@@ -175,11 +175,10 @@ install_i3 () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
- 	#sudo pacman -S i3-wm i3status cachyos-i3wm-settings lightdm lightdm-gtk-greeter --needed --noconfirm
 	sudo pacman -S i3-wm i3status cachyos-i3wm-settings sddm --needed --noconfirm
     sleep 10
 	rsync -a /etc/skel/.config ~/
-	#sudo systemctl enable lightdm
+	sed -i '/refresh-rate/s/^/# /' ~/.config/picom/picom.conf
 	sudo systemctl enable sddm
     clear
     echo ""

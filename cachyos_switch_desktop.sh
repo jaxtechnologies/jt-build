@@ -244,11 +244,10 @@ install_qtile () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	#sudo pacman -S qtile cachyos-qtile-settings lightdm lightdm-gtk-greeter --needed --noconfirm
 	sudo pacman -S qtile cachyos-qtile-settings sddm  --needed --noconfirm
     sleep 10
 	rsync -a /etc/skel/.config ~/
-	#sudo systemctl enable lightdm
+	sed -i '/glx-no-stencil/s/^/# /' ~/.config/qtile/scripts/picom.conf
 	sudo systemctl enable sddm
     clear
     echo ""

@@ -227,10 +227,12 @@ install_openbox () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S openbox cachyos-openbox-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+	#sudo pacman -S openbox cachyos-openbox-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+	sudo pacman -S openbox cachyos-openbox-settings sddm --needed --noconfirm
     sleep 10
 	rsync -a /etc/skel/.config ~/
-	sudo systemctl enable lightdm
+	#sudo systemctl enable lightdm
+	sudo systemctl enable sddm
     clear
     echo ""
     echo " Openbox installed. Please reboot and select Openbox Session from the login screen to start using it."
@@ -242,10 +244,12 @@ install_qtile () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S qtile cachyos-qtile-settings --needed --noconfirm
+	#sudo pacman -S qtile cachyos-qtile-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+	sudo pacman -S qtile cachyos-qtile-settings sddm  --needed --noconfirm
     sleep 10
 	rsync -a /etc/skel/.config ~/
-	sudo systemctl enable lightdm
+	#sudo systemctl enable lightdm
+	sudo systemctl enable sddm
     clear
     echo ""
     echo " Qtile installed. Please reboot and select Qtile Session from the login screen to start using it."

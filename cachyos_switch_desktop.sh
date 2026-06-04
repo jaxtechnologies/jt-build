@@ -159,12 +159,10 @@ install_gnome () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	##### gnome-extra will install a lot of the gnome suite of apps...
-	#sudo pacman -S gnome cachyos-gnome-settings lightdm lightdm-gtk-greeter --needed --noconfirm
+	##### gnome-extra can install a lot of the gnome suite of apps...
 	sudo pacman -S gnome cachyos-gnome-settings sddm --needed --noconfirm
     sleep 10
 	rsync -a /etc/skel/.config ~/
-	#sudo systemctl enable lightdm
 	sudo systemctl enable sddm
     clear
     echo ""

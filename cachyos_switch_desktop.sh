@@ -129,12 +129,9 @@ install_cinnamon () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	#sudo pacman -S cinnamon gnome-terminal nemo-fileroller lightdm lightdm-gtk-greeter --needed --noconfirm
 	sudo pacman -S cinnamon gnome-terminal nemo-fileroller sddm --needed --noconfirm
     sleep 10
-	#cp -r /etc/skel/.config ~/.config
 	rsync -a /etc/skel/.config ~/
-	#sudo systemctl enable lightdm
 	sudo systemctl enable sddm
     clear
     echo ""
@@ -150,7 +147,7 @@ install_cosmic () {
 	#sudo pacman -S cosmic-session cosmic-text-editor cosmic-terminal cosmic-store lightdm lightdm-gtk-greeter --needed --noconfirm
 	sudo pacman -S cosmic-session cosmic-text-editor cosmic-terminal cosmic-store sddm --needed --noconfirm
     sleep 10
-	cp -r /etc/skel/.config ~/.config
+	rsync -a /etc/skel/.config ~/
 	#sudo systemctl enable lightdm
 	sudo systemctl enable sddm
     clear
@@ -168,7 +165,7 @@ install_gnome () {
 	#sudo pacman -S gnome cachyos-gnome-settings lightdm lightdm-gtk-greeter --needed --noconfirm
 	sudo pacman -S gnome cachyos-gnome-settings sddm --needed --noconfirm
     sleep 10
-	cp -r /etc/skel/.config ~/.config
+	rsync -a /etc/skel/.config ~/
 	#sudo systemctl enable lightdm
 	sudo systemctl enable sddm
     clear
@@ -185,7 +182,7 @@ install_i3 () {
  	#sudo pacman -S i3-wm i3status cachyos-i3wm-settings lightdm lightdm-gtk-greeter --needed --noconfirm
 	sudo pacman -S i3-wm i3status cachyos-i3wm-settings sddm --needed --noconfirm
     sleep 10
-	cp -r /etc/skel/.config ~/.config
+	rsync -a /etc/skel/.config ~/
 	#sudo systemctl enable lightdm
 	sudo systemctl enable sddm
     clear
@@ -202,7 +199,7 @@ install_kde () {
 	#sudo pacman -S plasma-desktop discover dolphin konsole flatpak cachyos-kde-settings lightdm lightdm-gtk-greeter --needed --noconfirm
 	sudo pacman -S plasma-desktop discover dolphin konsole flatpak cachyos-kde-settings sddm --needed --noconfirm
     sleep 10
-	cp -r /etc/skel/.config ~/.config
+	rsync -a /etc/skel/.config ~/
 	#sudo systemctl enable lightdm
 	sudo systemctl enable sddm
     clear
@@ -239,7 +236,7 @@ install_openbox () {
 	sudo pacman -Syu --noconfirm
 	sudo pacman -S openbox cachyos-openbox-settings lightdm lightdm-gtk-greeter --needed --noconfirm
     sleep 10
-	cp -r /etc/skel/.config ~/.config
+	rsync -a /etc/skel/.config ~/
 	sudo systemctl enable lightdm
     clear
     echo ""
@@ -254,7 +251,7 @@ install_qtile () {
 	sudo pacman -Syu --noconfirm
 	sudo pacman -S qtile cachyos-qtile-settings --needed --noconfirm
     sleep 10
-	cp -r /etc/skel/.config ~/.config
+	rsync -a /etc/skel/.config ~/
 	sudo systemctl enable lightdm
     clear
     echo ""

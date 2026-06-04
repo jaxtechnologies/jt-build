@@ -219,10 +219,10 @@ install_niri () {
 	sudo pacman -S niri xwayland-satellite cachyos-niri-noctalia sddm --needed --noconfirm
     sleep 10
 	#cp -r /etc/skel/.config ~/.config
-	rsync -a /etc/skel/.config ~/.config
+	rsync -a /etc/skel/.config ~/
 	sleep 20
 	#sudo systemctl enable lightdm
-	#sudo systemctl enable sddm
+	sudo systemctl enable sddm
     clear
     echo ""
     echo " Niri installed. Please reboot and select Niri Session from the login screen to start using it."

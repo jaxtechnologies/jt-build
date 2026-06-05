@@ -230,9 +230,9 @@ install_openbox () {
 	sudo pacman -S openbox xfce4-terminal xcompmgr tint2 yad lightdm lightdm-gtk-greeter --needed --noconfirm
     sleep 10
 	rsync -a /etc/skel/.config ~/
-	cp $INSTALL_PATH/backgrounds/openbox.jpg /usr/share/backgrounds/wallpaper.jpg
-	cp $INSTALL_PATH/openbox/* ~/.config/openbox/
-	cp $INSTALL_PATH/openbox/tint2/* ~/.config/tint2/
+	sudo cp $INSTALL_PATH/openbox/backgrounds/wallpaper.jpg /usr/share/backgrounds/wallpaper.jpg
+	cp $INSTALL_PATH/openbox/.config/openbox/* ~/.config/openbox/
+	cp $INSTALL_PATH/openbox/.config/tint2/* ~/.config/tint2/
 	sudo systemctl enable lightdm
     clear
     echo ""

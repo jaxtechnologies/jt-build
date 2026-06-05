@@ -4,6 +4,8 @@
 # Eddie Reynolds
 #
 
+INSTALL_PATH=$(pwd)
+
 get_current_desktop () {
     printf '%s\n' "${DESKTOP_SESSION:-Unknown}"
 }
@@ -225,6 +227,9 @@ install_openbox () {
 	sudo pacman -S openbox xfce4-terminal xcompmgr tint2 yad lightdm lightdm-gtk-greeter --needed --noconfirm
     sleep 10
 	rsync -a /etc/skel/.config ~/
+	git clone https://github.com/jaxtechnologies/jt-wallpapers
+	[ ! -d /usr/share/backgrounds/ ] && mkdir -p /usr/share/backgrounds/
+	cp $INSTALL_PATH/jt-wallpapers/* /usr/share/backgrounds/
 	sudo systemctl enable lightdm
     clear
     echo ""

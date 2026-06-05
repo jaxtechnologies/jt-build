@@ -89,7 +89,7 @@ update_base_system() {
 ##################################################################################################
 install_base_apps() {
    clear
-    sudo pacman -S --noconfirm install alacritty curl dos2unix eza fish gxmessage neovim openssh powerline-fonts sxhkd vim xdotool 2>&1
+    sudo pacman -S --noconfirm install alacritty curl dos2unix eza fish gxmessage neovim openssh powerline-fonts sxhkd vim xdotool flatpak 2>&1
 
 #    [ ! -d ~/.config/alacritty ] && mkdir -p ~/.config/alacritty 2>&1 | tee -a $LOG
 #    [ ! -d ~/.config/sxhkd ] && mkdir -p ~/.config/sxhkd 2>&1 | tee -a $LOG
@@ -246,7 +246,7 @@ devops() {
     checkboxes["docker"]="docker"
     checkboxes["docker-compose"]="docker-compose"
     checkboxes["python-pip"]="python-pip"
-    checkboxes["python-pipvenv"]="python-pipenv"
+    checkboxes["python-pipenv"]="python-pipenv"
     checkboxes["sqlitebrowser"]="sqlitebrowser"
     checkboxes["tk"]="tk"
 

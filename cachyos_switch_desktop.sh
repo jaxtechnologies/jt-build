@@ -222,14 +222,17 @@ install_niri () {
 install_openbox () {
 	remove_current_desktop
 	sleep 10
+	[ ! -d /usr/share/backgrounds/ ] && mkdir -p /usr/share/backgrounds/
+	[ ! -d ~/.config/openbox/ ] && mkdir -p ~/.config/openbox/
+	[ ! -d ~/.config/tint2/ ] && mkdir -p ~/.config/tint2/
 	sudo pacman -Syu --noconfirm
 	#sudo pacman -S openbox xfce4-terminal lightdm lightdm-gtk-greeter --needed --noconfirm
 	sudo pacman -S openbox xfce4-terminal xcompmgr tint2 yad lightdm lightdm-gtk-greeter --needed --noconfirm
     sleep 10
 	rsync -a /etc/skel/.config ~/
-	git clone https://github.com/jaxtechnologies/jt-wallpapers
-	[ ! -d /usr/share/backgrounds/ ] && mkdir -p /usr/share/backgrounds/
-	cp $INSTALL_PATH/jt-wallpapers/* /usr/share/backgrounds/
+	cp $INSTALL_PATH/backgrounds/openbox.jpg /usr/share/backgrounds/wallpaper.jpg
+	cp $INSTALL_PATH/openbox/* ~/.config/openbox/
+	cp $INSTALL_PATH/openbox/tint2/* ~/.config/tint2/
 	sudo systemctl enable lightdm
     clear
     echo ""

@@ -222,7 +222,7 @@ install_niri () {
 install_openbox () {
 	remove_current_desktop
 	sleep 10
-	[ ! -d /usr/share/backgrounds/ ] && mkdir -p /usr/share/backgrounds/
+	[ ! -d /usr/share/backgrounds/ ] && sudo mkdir -p /usr/share/backgrounds/
 	[ ! -d ~/.config/openbox/ ] && mkdir -p ~/.config/openbox/
 	[ ! -d ~/.config/tint2/ ] && mkdir -p ~/.config/tint2/
 	sudo pacman -Syu --noconfirm

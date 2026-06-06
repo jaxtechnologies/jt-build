@@ -269,7 +269,8 @@ install_openbox () {
 			sudo pacman -Sdd cachyos-openbox-settings --noconfirm --needed;
 			rsync -a /etc/skel/ ~/
 			xdg-user-dirs-update
-	
+			cp -r $INSTALL_PATH/music/* ~/Music/
+			
 	        ;;
 	    *)
 	        echo " Invalid selection."

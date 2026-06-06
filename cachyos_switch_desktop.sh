@@ -262,7 +262,12 @@ install_openbox () {
 			thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman tint2 ttf-nerd-fonts-symbols tumbler xbindkeys xcursor-neutral \
 			xdg-user-dirs-gtk xed xfce4-terminal --needed --noconfirm
 			sleep 10
-			rsync -a /etc/skel/.config ~/
+			sudo pacman -U $INSTALL_PATH/openbox/packages/gtk2-2.24.33-5-x86_64.pkg.tar.zst --noconfirm
+			sudo pacman -U $INSTALL_PATH/openbox/packages/gtkmm-1_2.24.5-5-x86_64.pkg.tar.zst --noconfirm
+			sudo pacman -U $INSTALL_PATH/openbox/packages/nitrogen-1.6.1-6-x86_64.pkg.tar.zst --noconfirm
+			sudo pacman -Rdd picom --noconfirm;
+			sudo pacman -Sdd cachyos-openbox-settings --noconfirm --needed;
+			rsync -a /etc/skel/ ~/
 	
 	        ;;
 	    *)

@@ -242,6 +242,11 @@ install_openbox () {
 	
 	        # Simple Menu Setup commands
 	        sudo pacman -S openbox xfce4-terminal xcompmgr tint2 yad feh polkit-gnome xorg-xrandr jgmenu lightdm lightdm-gtk-greeter --needed --noconfirm
+			sleep 10
+			rsync -a /etc/skel/.config ~/
+			sudo cp $INSTALL_PATH/openbox/backgrounds/wallpaper.jpg /usr/share/backgrounds/wallpaper.jpg
+			cp $INSTALL_PATH/openbox/.config/openbox/* ~/.config/openbox/
+			cp $INSTALL_PATH/openbox/.config/tint2/* ~/.config/tint2/
 	
 	        ;;
 	    2)
@@ -254,6 +259,8 @@ install_openbox () {
 			jq lightdm lightdm-slick-greeter lxappearance mpv network-manager-applet openbox pasystray picom polkit-gnome rofi scrot slock sysstat \
 			thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman tint2 ttf-nerd-fonts-symbols tumbler xbindkeys xcursor-neutral \
 			xdg-user-dirs-gtk xed xfce4-terminal --needed --noconfirm
+			sleep 10
+			rsync -a /etc/skel/.config ~/
 	
 	        ;;
 	    *)
@@ -262,11 +269,6 @@ install_openbox () {
 	        ;;
 	esac
 	
-    sleep 10
-	rsync -a /etc/skel/.config ~/
-	sudo cp $INSTALL_PATH/openbox/backgrounds/wallpaper.jpg /usr/share/backgrounds/wallpaper.jpg
-	cp $INSTALL_PATH/openbox/.config/openbox/* ~/.config/openbox/
-	cp $INSTALL_PATH/openbox/.config/tint2/* ~/.config/tint2/
 	sudo systemctl enable lightdm
     clear
     echo ""

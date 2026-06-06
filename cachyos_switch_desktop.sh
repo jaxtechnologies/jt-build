@@ -227,12 +227,14 @@ install_openbox () {
 	[ ! -d ~/.config/tint2/ ] && mkdir -p ~/.config/tint2/
 	sudo pacman -Syu --noconfirm
 
-	echo "Select installation type:"
-	echo "1) Simple Menu Setup"
-	echo "2) OpenBox Style Setup"
-	echo
+	clear
+	echo ""
+	echo " Select installation type:"
+	echo " 1) Simple Menu Setup"
+	echo " 2) OpenBox Style Setup"
+	echo ""
 
-	read -rp "Enter choice [1-2]: " choice
+	read -rp " Enter choice [1-2]: " choice
 	
 	case "$choice" in
 	    1)
@@ -256,7 +258,7 @@ install_openbox () {
 	
 	        # OpenBox Style Setup commands
 	        sudo pacman -S obconf-qt libwnck3 acpi arandr archlinux-xdg-menu dex dmenu dunst feh gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb jgmenu \
-			jq lightdm lightdm-slick-greeter lxappearance mpv network-manager-applet openbox pasystray picom polkit-gnome rofi scrot slock sysstat \
+			jq lightdm lightdm-gtk-greeter lxappearance mpv network-manager-applet openbox pasystray picom polkit-gnome rofi scrot slock sysstat \
 			thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman tint2 ttf-nerd-fonts-symbols tumbler xbindkeys xcursor-neutral \
 			xdg-user-dirs-gtk xed xfce4-terminal --needed --noconfirm
 			sleep 10
@@ -264,7 +266,7 @@ install_openbox () {
 	
 	        ;;
 	    *)
-	        echo "Invalid selection."
+	        echo " Invalid selection."
 	        exit 1
 	        ;;
 	esac

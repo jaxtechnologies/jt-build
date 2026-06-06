@@ -258,9 +258,9 @@ install_openbox () {
 	
 	        # OpenBox Style Setup commands
 	        sudo pacman -S obconf-qt libwnck3 acpi arandr archlinux-xdg-menu dex dmenu dunst feh gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb jgmenu \
-			jq lightdm lightdm-gtk-greeter lxappearance mpv network-manager-applet obmenu-generator openbox pasystray picom polkit-gnome rofi rxvt-unicode scrot \
-			slock sysstat thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman tint2 ttf-nerd-fonts-symbols tumbler xbindkeys xcursor-neutral \
-			xdg-user-dirs-gtk xed xfce4-terminal --needed --noconfirm
+			jq lightdm lightdm-gtk-greeter lxappearance mpc mpd mpv ncmpcpp network-manager-applet obmenu-generator openbox pasystray picom polkit-gnome rofi \
+			rxvt-unicode scrot slock sysstat thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman tint2 ttf-nerd-fonts-symbols tumbler xbindkeys \
+			xcursor-neutral xdg-user-dirs xed xfce4-terminal --needed --noconfirm
 			sleep 10
 			sudo pacman -U $INSTALL_PATH/openbox/packages/gtk2-2.24.33-5-x86_64.pkg.tar.zst --noconfirm
 			sudo pacman -U $INSTALL_PATH/openbox/packages/gtkmm-1_2.24.5-5-x86_64.pkg.tar.zst --noconfirm
@@ -268,6 +268,7 @@ install_openbox () {
 			sudo pacman -Rdd picom --noconfirm;
 			sudo pacman -Sdd cachyos-openbox-settings --noconfirm --needed;
 			rsync -a /etc/skel/ ~/
+			xdg-user-dirs-update
 	
 	        ;;
 	    *)

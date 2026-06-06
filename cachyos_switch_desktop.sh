@@ -226,7 +226,42 @@ install_openbox () {
 	[ ! -d ~/.config/openbox/ ] && mkdir -p ~/.config/openbox/
 	[ ! -d ~/.config/tint2/ ] && mkdir -p ~/.config/tint2/
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S openbox xfce4-terminal xcompmgr tint2 yad feh polkit-gnome xorg-xrandr jgmenu lightdm lightdm-gtk-greeter --needed --noconfirm
+
+	echo "Select installation type:"
+	echo "1) Simple Menu Setup"
+	echo "2) OpenBox Style Setup"
+	echo
+
+	read -rp "Enter choice [1-2]: " choice
+	
+	case "$choice" in
+	    1)
+			clear
+			echo ""
+	        echo " Starting Simple Menu Setup..."
+	
+	        # Simple Menu Setup commands
+	        sudo pacman -S openbox xfce4-terminal xcompmgr tint2 yad feh polkit-gnome xorg-xrandr jgmenu lightdm lightdm-gtk-greeter --needed --noconfirm
+	
+	        ;;
+	    2)
+			clear
+			echo ""
+	        echo " Starting OpenBox Style Setup..."
+	
+	        # OpenBox Style Setup commands
+	        sudo pacman -S obconf-qt libwnck3 acpi arandr archlinux-xdg-menu dex dmenu dunst feh gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb jgmenu \
+			jq lightdm lightdm-slick-greeter lxappearance mpv network-manager-applet openbox pasystray picom polkit-gnome rofi scrot slock sysstat \
+			thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman tint2 ttf-nerd-fonts-symbols tumbler xbindkeys xcursor-neutral \
+			xdg-user-dirs-gtk xed xfce4-terminal --needed --noconfirm
+	
+	        ;;
+	    *)
+	        echo "Invalid selection."
+	        exit 1
+	        ;;
+	esac
+	
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	sudo cp $INSTALL_PATH/openbox/backgrounds/wallpaper.jpg /usr/share/backgrounds/wallpaper.jpg

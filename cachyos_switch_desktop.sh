@@ -240,7 +240,7 @@ install_openbox () {
 	    1)
 			clear
 			echo ""
-	        echo " Starting Simple Menu Setup..."
+	        echo " Starting OpenBox Simple Menu Setup..."
 			sleep 5
 	
 	        # Simple Menu Setup commands
@@ -258,7 +258,7 @@ install_openbox () {
 	    2)
 			clear
 			echo ""
-	        echo " Starting OpenBox Style Setup..."
+	        echo " Starting OpenBox CachyOS Style Setup..."
 			sleep 5
 	
 	        # OpenBox Style Setup commands

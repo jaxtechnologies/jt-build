@@ -252,7 +252,7 @@ install_openbox () {
 			cp $INSTALL_PATH/openbox/.config/openbox/* ~/.config/openbox/
 			cp $INSTALL_PATH/openbox/.config/tint2/* ~/.config/tint2/
 			obmenu-generator -p
-			xrandr -s 1600x900
+			paru gmrun --noconfirm
 	
 	        ;;
 	    2)

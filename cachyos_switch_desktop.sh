@@ -229,9 +229,9 @@ install_openbox () {
 
 	clear
 	echo ""
-	echo " Select installation type:"
-	echo " 1) Simple Menu Setup"
-	echo " 2) OpenBox Style Setup"
+	echo " Select OpenBox installation type:"
+	echo " 1) OpenBox Simple Menu Setup"
+	echo " 2) OpenBox CachyOS Style Setup"
 	echo ""
 
 	read -rp " Enter choice [1-2]: " choice

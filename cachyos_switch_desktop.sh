@@ -245,7 +245,7 @@ install_openbox () {
 	
 	        # Simple Menu Setup commands
 	        sudo pacman -S feh jgmenu lightdm lightdm-gtk-greeter obmenu-generator openbox polkit-gnome thunar thunar-archive-plugin thunar-media-tags-plugin \
-			thunar-volman tint2 xcompmgr xfce4-terminal xorg-xrandr xterm yad --needed --noconfirm
+			thunar-volman tint2 xcompmgr xfce4-terminal xorg-xrandr xscreensaver xterm yad --needed --noconfirm
 			sleep 10
 			rsync -a /etc/skel/.config ~/
 			sudo cp $INSTALL_PATH/openbox/backgrounds/wallpaper.jpg /usr/share/backgrounds/wallpaper.jpg

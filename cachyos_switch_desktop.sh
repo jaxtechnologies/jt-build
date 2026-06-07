@@ -241,6 +241,7 @@ install_openbox () {
 			clear
 			echo ""
 	        echo " Starting Simple Menu Setup..."
+			sleep 5
 	
 	        # Simple Menu Setup commands
 	        sudo pacman -S openbox xfce4-terminal xcompmgr tint2 yad feh polkit-gnome xorg-xrandr jgmenu lightdm lightdm-gtk-greeter --needed --noconfirm
@@ -255,6 +256,7 @@ install_openbox () {
 			clear
 			echo ""
 	        echo " Starting OpenBox Style Setup..."
+			sleep 5
 	
 	        # OpenBox Style Setup commands
 	        sudo pacman -S obconf-qt libwnck3 acpi arandr archlinux-xdg-menu dex dmenu dunst feh gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb jgmenu \

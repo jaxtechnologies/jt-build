@@ -151,7 +151,7 @@ install_bspwm () {
 	feh --bg-fill ~/wallpaper.jpg
     clear
     echo ""
-    echo " Cinnamon installed. Please reboot and select Cinnamon Session from the login screen to start using it."
+    echo " bspwm installed. Please reboot and select bspwm Session from the login screen to start using it."
     sleep 10
     exit_menu
 }

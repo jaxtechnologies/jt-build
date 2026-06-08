@@ -12,6 +12,9 @@ get_current_desktop () {
 
 get_current_desktop_key () {
 	case "$(get_current_desktop | tr '[:upper:]' '[:lower:]')" in
+		*bspwm*)
+			echo "bspwm"
+			;;
 		*cinnamon*)
 			echo "cinnamon"
 			;;
@@ -44,6 +47,10 @@ get_current_desktop_key () {
 
 remove_current_desktop () {
 	case "$(get_current_desktop_key)" in
+		bspwm)
+			clear
+			remove_bspwm
+			;;
 		cinnamon)
 			clear
 			remove_cinnamon
@@ -88,6 +95,11 @@ remove_current_desktop () {
 ##### REMOVE PREVIOUS SETTINGS
 ########################################
 
+remove_bspwm () {
+	##### cachyos-bspwm-settings don't exist
+	sudo pacman -R --noconfirm cachyos-bspwm-settings
+}
+
 remove_cinnamon () {
 	##### cachyos-cinnamon-settings don't exist
 	sudo pacman -R --noconfirm cachyos-cinnamon-settings
@@ -126,6 +138,21 @@ remove_qtile () {
 ########################################
 ##### INSTALL NEW DESKTOP ENVIRONMENT
 ########################################
+
+install_bspwm () {
+	remove_current_desktop
+	sleep 10
+	sudo pacman -Syu --noconfirm
+	sudo pacman -S --needed --noconfirm bspwm dmenu picom sddm sxhkd xorg-xinit
+    sleep 10
+	rsync -a /etc/skel/.config ~/
+	sudo systemctl enable sddm
+    clear
+    echo ""
+    echo " Cinnamon installed. Please reboot and select Cinnamon Session from the login screen to start using it."
+    sleep 10
+    exit_menu
+}
 
 install_cinnamon () {
 	remove_current_desktop
@@ -333,14 +360,14 @@ cat << !
  -----------------------------------------------------------
  |              D E S K T O P     M E N U                  |
  -----------------------------------------------------------
- | a) Install Cinnamon  i)                  q)             |
- | b) Install Cosmic    j)                  r)             |
- | c) Install Gnome     k)                  s)             |
- | d) Install i3        l)                  t)             |
- | e) Install KDE       m)                  u)             |
- | f) Install Niri      n)                  v)             |
- | g) Install Openbox   o)                  w)             |
- | h) Install Qtile     p)                  x) exit menu   |
+ | a) Install bspwm     i) Install Qtile    q)             |
+ | b) Install Cinnamon  j)                  r)             |
+ | c) Install Cosmic    k)                  s)             |
+ | d) Install Gnome     l)                  t)             |
+ | e) Install i3        m)                  u)             |
+ | f) Install KDE       n)                  v)             |
+ | g) Install Niri      o)                  w)             |
+ | h) Install Openbox   p)                  x) exit menu   |
  -----------------------------------------------------------
 
 !
@@ -349,15 +376,15 @@ echo -n "  Your choice? : "
 read choice
 
 case $choice in
-a) install_cinnamon ;;
-b) install_cosmic ;;
-c) install_gnome ;;
-d) install_i3 ;;
-e) install_kde ;;
-f) install_niri ;;
-g) install_openbox ;;
-h) install_qtile ;;
-i) function_i ;;
+a) install_bspwm ;;
+b) install_cinnamon ;;
+c) install_cosmic ;;
+d) install_gnome ;;
+e) install_i3 ;;
+f) install_kde ;;
+g) install_niri ;;
+h) install_openbox ;;
+i) install_qtile ;;
 j) function_j ;;
 k) function_k ;;
 l) function_l ;;

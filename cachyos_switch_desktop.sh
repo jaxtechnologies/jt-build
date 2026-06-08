@@ -90,37 +90,37 @@ remove_current_desktop () {
 
 remove_cinnamon () {
 	##### cachyos-cinnamon-settings don't exist
-	sudo pacman -R cachyos-cinnamon-settings --noconfirm
+	sudo pacman -R --noconfirm cachyos-cinnamon-settings
 }
 
 remove_cosmic () {
 	##### cachyos-cosmic-settings don't exist
-	sudo pacman -R cachyos-cosmic-settings --noconfirm
+	sudo pacman -R --noconfirm cachyos-cosmic-settings
 }
 
 remove_gnome () {
 	##### cachyos-gnome-settings don't exist
-	sudo pacman -R cachyos-gnome-settings --noconfirm
+	sudo pacman -R --noconfirm cachyos-gnome-settings
 }
 
 remove_i3 () {
-	sudo pacman -R cachyos-i3wm-settings --noconfirm
+	sudo pacman -R --noconfirm cachyos-i3wm-settings
 }
 
 remove_kde () {
-	sudo pacman -R cachyos-kde-settings --noconfirm
+	sudo pacman -R --noconfirm cachyos-kde-settings
 }
 
 remove_niri () {
-	sudo pacman -R cachyos-niri-settings --noconfirm
+	sudo pacman -R --noconfirm cachyos-niri-settings
 }
 
 remove_openbox () {
-	sudo pacman -R cachyos-openbox-settings --noconfirm
+	sudo pacman -R --noconfirm cachyos-openbox-settings
 }
 
 remove_qtile () {
-	sudo pacman -R cachyos-qtile-settings --noconfirm
+	sudo pacman -R --noconfirm cachyos-qtile-settings
 }
 
 ########################################
@@ -131,7 +131,7 @@ install_cinnamon () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S cinnamon gnome-terminal nemo-fileroller sddm --needed --noconfirm
+	sudo pacman -S --needed --noconfirm cinnamon gnome-terminal nemo-fileroller sddm
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	sudo systemctl enable sddm
@@ -146,7 +146,7 @@ install_cosmic () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S cosmic-session cosmic-text-editor cosmic-terminal cosmic-store sddm --needed --noconfirm
+	sudo pacman -S --needed --noconfirm cosmic-session cosmic-text-editor cosmic-terminal cosmic-store sddm
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	sudo systemctl enable sddm
@@ -162,7 +162,7 @@ install_gnome () {
 	sleep 10
 	sudo pacman -Syu --noconfirm
 	##### gnome-extra can install a lot of the gnome suite of apps...
-	sudo pacman -S gnome cachyos-gnome-settings sddm --needed --noconfirm
+	sudo pacman -S --needed --noconfirm gnome cachyos-gnome-settings sddm
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	sudo systemctl enable sddm
@@ -177,7 +177,7 @@ install_i3 () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S i3-wm i3status cachyos-i3wm-settings sddm --needed --noconfirm
+	sudo pacman -S --needed --noconfirm i3-wm i3status cachyos-i3wm-settings sddm
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	sed -i '/refresh-rate/s/^/# /' ~/.config/picom/picom.conf
@@ -193,7 +193,7 @@ install_kde () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S plasma-desktop discover dolphin konsole flatpak cachyos-kde-settings sddm --needed --noconfirm
+	sudo pacman -S --needed --noconfirm plasma-desktop discover dolphin konsole flatpak cachyos-kde-settings sddm
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	sudo systemctl enable sddm
@@ -208,7 +208,7 @@ install_niri () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S niri xwayland-satellite cachyos-niri-noctalia sddm --needed --noconfirm
+	sudo pacman -S --needed --noconfirm niri xwayland-satellite cachyos-niri-noctalia sddm
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	sudo systemctl enable sddm
@@ -244,15 +244,15 @@ install_openbox () {
 			sleep 5
 	
 	        # Simple Menu Setup commands
-	        sudo pacman -S feh jgmenu lightdm lightdm-gtk-greeter obmenu-generator openbox polkit-gnome thunar thunar-archive-plugin thunar-media-tags-plugin \
-			thunar-volman tint2 xcompmgr xfce4-terminal xorg-xrandr xscreensaver xterm yad --needed --noconfirm
+	        sudo pacman -S --needed --noconfirm feh jgmenu lightdm lightdm-gtk-greeter obmenu-generator openbox polkit-gnome thunar thunar-archive-plugin thunar-media-tags-plugin \
+			thunar-volman tint2 xcompmgr xfce4-terminal xorg-xrandr xscreensaver xterm yad
 			sleep 10
 			rsync -a /etc/skel/.config ~/
 			sudo cp $INSTALL_PATH/openbox/backgrounds/wallpaper.jpg /usr/share/backgrounds/wallpaper.jpg
 			cp $INSTALL_PATH/openbox/.config/openbox/* ~/.config/openbox/
 			cp $INSTALL_PATH/openbox/.config/tint2/* ~/.config/tint2/
 			obmenu-generator -p
-			paru gmrun --noconfirm
+			paru -S --noconfirm gmrun
 	
 	        ;;
 	    2)
@@ -262,16 +262,16 @@ install_openbox () {
 			sleep 5
 	
 	        # OpenBox Style Setup commands
-	        sudo pacman -S obconf-qt libwnck3 acpi arandr archlinux-xdg-menu dex dmenu dunst feh gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb jgmenu \
+	        sudo pacman -S --needed --noconfirm obconf-qt libwnck3 acpi arandr archlinux-xdg-menu dex dmenu dunst feh gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb jgmenu \
 			jq lightdm lightdm-gtk-greeter lxappearance mpc mpd mpv ncmpcpp network-manager-applet obmenu-generator openbox pasystray picom polkit-gnome rofi \
 			rxvt-unicode scrot slock sysstat thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman tint2 ttf-nerd-fonts-symbols tumbler xbindkeys \
-			xcursor-neutral xdg-user-dirs xdotool xed xfce4-terminal --needed --noconfirm
+			xcursor-neutral xdg-user-dirs xdotool xed xfce4-terminal
 			sleep 10
-			sudo pacman -U $INSTALL_PATH/openbox/packages/gtk2-2.24.33-5-x86_64.pkg.tar.zst --noconfirm
-			sudo pacman -U $INSTALL_PATH/openbox/packages/gtkmm-1_2.24.5-5-x86_64.pkg.tar.zst --noconfirm
-			sudo pacman -U $INSTALL_PATH/openbox/packages/nitrogen-1.6.1-6-x86_64.pkg.tar.zst --noconfirm
-			sudo pacman -Rdd picom --noconfirm;
-			sudo pacman -Sdd cachyos-openbox-settings --noconfirm --needed;
+			sudo pacman -U --noconfirm $INSTALL_PATH/openbox/packages/gtk2-2.24.33-5-x86_64.pkg.tar.zst
+			sudo pacman -U --noconfirm $INSTALL_PATH/openbox/packages/gtkmm-1_2.24.5-5-x86_64.pkg.tar.zst
+			sudo pacman -U --noconfirm $INSTALL_PATH/openbox/packages/nitrogen-1.6.1-6-x86_64.pkg.tar.zst
+			sudo pacman -Rdd --noconfirm picom;
+			sudo pacman -Sdd --needed --noconfirm cachyos-openbox-settings;
 			rsync -a /etc/skel/ ~/
 			xdg-user-dirs-update
 			cp -r $INSTALL_PATH/music/* ~/Music/
@@ -295,7 +295,7 @@ install_qtile () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S qtile cachyos-qtile-settings sddm  --needed --noconfirm
+	sudo pacman -S --needed --noconfirm qtile cachyos-qtile-settings sddm
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	sed -i '/glx-no-stencil/s/^/# /' ~/.config/qtile/scripts/picom.conf

@@ -142,13 +142,18 @@ remove_qtile () {
 install_bspwm () {
 	remove_current_desktop
 	sleep 10
+	[ ! -d ~/.config/bspwm/ ] && mkdir -p ~/.config/bspwm/
+	[ ! -d ~/.config/sxhkd/ ] && mkdir -p ~/.config/sxhkd/
 	sudo pacman -Syu --noconfirm
 	sudo pacman -S --needed --noconfirm bspwm dmenu feh picom sddm sxhkd xorg-xinit
     sleep 10
 	rsync -a /etc/skel/.config ~/
-	sudo systemctl enable sddm
 	cp $INSTALL_PATH/bspwm/backgrounds/wallpaper.jpg ~/
+	cp $INSTALL_PATH/bspwm/.config/bspwm/* ~/.config/bspwm/
+	cp $INSTALL_PATH/bspwm/.config/sxhkd/* ~/.config/sxhkd/
+	cp $INSTALL_PATH/.xinitrc ~/
 	feh --bg-fill ~/wallpaper.jpg
+	sudo systemctl enable sddm
     clear
     echo ""
     echo " bspwm installed. Please reboot and select bspwm Session from the login screen to start using it."

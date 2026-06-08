@@ -151,7 +151,7 @@ install_bspwm () {
 	cp $INSTALL_PATH/bspwm/backgrounds/wallpaper.jpg ~/
 	cp $INSTALL_PATH/bspwm/.config/bspwm/* ~/.config/bspwm/
 	cp $INSTALL_PATH/bspwm/.config/sxhkd/* ~/.config/sxhkd/
-	cp $INSTALL_PATH/.xinitrc ~/
+	cp $INSTALL_PATH/bspwm/.xinitrc ~/
 	feh --bg-fill ~/wallpaper.jpg
 	sudo systemctl enable sddm
     clear

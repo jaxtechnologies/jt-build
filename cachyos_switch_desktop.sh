@@ -143,7 +143,7 @@ install_bspwm () {
 	remove_current_desktop
 	sleep 10
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --needed --noconfirm bspwm dmenu picom sddm sxhkd xorg-xinit
+	sudo pacman -S --needed --noconfirm bspwm dmenu feh picom sddm sxhkd xorg-xinit
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	sudo systemctl enable sddm

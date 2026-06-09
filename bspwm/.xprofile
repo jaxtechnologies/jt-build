@@ -1,3 +1,4 @@
 feh --bg-fill ~/wallpaper.jpg &
+polybar &
 sxhkd &
 exec bspwm

@@ -144,6 +144,7 @@ install_bspwm () {
 	sleep 10
 	[ ! -d ~/.config/bspwm/ ] && mkdir -p ~/.config/bspwm/
 	[ ! -d ~/.config/sxhkd/ ] && mkdir -p ~/.config/sxhkd/
+	[ ! -d ~/.config/polybar/ ] && mkdir -p ~/.config/polybar/
 	sudo pacman -Syu --noconfirm
 	sudo pacman -S --needed --noconfirm bspwm dmenu feh picom sddm sxhkd xorg-xinit
     sleep 10
@@ -151,6 +152,7 @@ install_bspwm () {
 	cp $INSTALL_PATH/bspwm/backgrounds/wallpaper.jpg ~/
 	cp $INSTALL_PATH/bspwm/.config/bspwm/* ~/.config/bspwm/
 	cp $INSTALL_PATH/bspwm/.config/sxhkd/* ~/.config/sxhkd/
+    cp $INSTALL_PATH/bspwm/.config/polybar/* ~/.config/polybar/
 	cp $INSTALL_PATH/bspwm/.xprofile ~/
 	sudo systemctl enable sddm
     clear

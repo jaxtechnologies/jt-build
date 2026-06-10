@@ -6,6 +6,14 @@
 super + Return
 	alacritty
 
+# browser
+super + b
+	firefox
+
+# file manager
+super + f
+	thunar
+
 # program launcher
 super + @space
 	dmenu_run

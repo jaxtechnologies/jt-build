@@ -142,19 +142,27 @@ remove_qtile () {
 install_bspwm () {
 	remove_current_desktop
 	sleep 10
+	sudo cp -r $INSTALL_PATH/fonts/jaxtech /usr/share/fonts/
 	[ ! -d ~/.config/bspwm/ ] && mkdir -p ~/.config/bspwm/
 	[ ! -d ~/.config/sxhkd/ ] && mkdir -p ~/.config/sxhkd/
+	[ ! -d ~/.config/mpd ] && mkdir -p ~/.config/mpd/
+    [ ! -d ~/.config/ncmpcpp ] && mkdir -p ~/.config/ncmpcpp/
 	[ ! -d ~/.config/polybar/ ] && mkdir -p ~/.config/polybar/
+	[ ! -d ~/Music ] && mkdir -p ~/Music/
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --needed --noconfirm bspwm dmenu feh picom polybar sddm sxhkd thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman xorg-xinit
+	sudo pacman -S --needed --noconfirm bspwm dmenu feh mpc mpd ncmpcpp picom polybar sddm sxhkd thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman xorg-xinit
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	cp $INSTALL_PATH/bspwm/backgrounds/wallpaper.jpg ~/
 	cp $INSTALL_PATH/bspwm/.config/bspwm/* ~/.config/bspwm/
 	cp $INSTALL_PATH/bspwm/.config/sxhkd/* ~/.config/sxhkd/
+	cp $INSTALL_PATH/bspwm/.config/mpd/* ~/.config/mpd/
+    cp $INSTALL_PATH/bspwm/.config/ncmpcpp/* ~/.config/ncmpcpp/
     cp $INSTALL_PATH/bspwm/.config/polybar/* ~/.config/polybar/
 	cp $INSTALL_PATH/bspwm/.xprofile ~/
+	cp -r $INSTALL_PATH/music/* ~/Music/
 	sudo systemctl enable sddm
+	systemctl --user enable mpd.service
     clear
     echo ""
     echo " bspwm installed. Please reboot and select bspwm Session from the login screen to start using it."

@@ -146,7 +146,7 @@ install_bspwm () {
 	[ ! -d ~/.config/sxhkd/ ] && mkdir -p ~/.config/sxhkd/
 	[ ! -d ~/.config/polybar/ ] && mkdir -p ~/.config/polybar/
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --needed --noconfirm bspwm dmenu feh picom polybar sddm sxhkd xorg-xinit
+	sudo pacman -S --needed --noconfirm bspwm dmenu feh picom polybar sddm sxhkd thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman xorg-xinit
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	cp $INSTALL_PATH/bspwm/backgrounds/wallpaper.jpg ~/

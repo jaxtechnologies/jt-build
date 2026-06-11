@@ -1,5 +1,6 @@
 feh --bg-fill ~/wallpaper.jpg &
 xrandr -s 1600x900
+xsetroot -cursor_name left_ptr
 mpd &
 polybar &
 sxhkd &

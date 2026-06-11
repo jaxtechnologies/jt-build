@@ -152,7 +152,8 @@ install_bspwm () {
 	[ ! -d ~/.config/rofi ] && mkdir -p ~/.config/rofi/
 	[ ! -d ~/Music ] && mkdir -p ~/Music/
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --needed --noconfirm bspwm dmenu feh mpc mpd ncmpcpp picom polybar rofi sddm sxhkd thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman xorg-xinit
+	sudo pacman -S --needed --noconfirm bspwm dmenu feh mpc mpd ncmpcpp picom polybar rofi sddm sxhkd thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman \
+	xorg-xinit xorg-xsetroot
     sleep 10
 	rsync -a /etc/skel/.config ~/
 	cp $INSTALL_PATH/bspwm/backgrounds/wallpaper.jpg ~/

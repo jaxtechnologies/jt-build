@@ -143,11 +143,13 @@ install_bspwm () {
 	remove_current_desktop
 	sleep 10
 	sudo cp -r $INSTALL_PATH/fonts/jaxtech /usr/share/fonts/
+	sudo cp $INSTALL_PATH/scripts/* /usr/local/bin/
 	[ ! -d ~/.config/bspwm/ ] && mkdir -p ~/.config/bspwm/
 	[ ! -d ~/.config/sxhkd/ ] && mkdir -p ~/.config/sxhkd/
 	[ ! -d ~/.config/mpd ] && mkdir -p ~/.config/mpd/
     [ ! -d ~/.config/ncmpcpp ] && mkdir -p ~/.config/ncmpcpp/
 	[ ! -d ~/.config/polybar/ ] && mkdir -p ~/.config/polybar/
+	[ ! -d ~/.config/rofi ] && mkdir -p ~/.config/rofi/
 	[ ! -d ~/Music ] && mkdir -p ~/Music/
 	sudo pacman -Syu --noconfirm
 	sudo pacman -S --needed --noconfirm bspwm dmenu feh mpc mpd ncmpcpp picom polybar sddm sxhkd thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman xorg-xinit
@@ -159,8 +161,12 @@ install_bspwm () {
 	cp $INSTALL_PATH/bspwm/.config/mpd/* ~/.config/mpd/
     cp $INSTALL_PATH/bspwm/.config/ncmpcpp/* ~/.config/ncmpcpp/
     cp $INSTALL_PATH/bspwm/.config/polybar/* ~/.config/polybar/
+	cp -r $INSTALL_PATH/rofi/* ~/.config/rofi/
 	cp $INSTALL_PATH/bspwm/.xprofile ~/
 	cp -r $INSTALL_PATH/music/* ~/Music/
+	touch ~/.config/mpd/mpd.db
+    touch ~/.config/mpd/mpd.log
+    touch ~/.config/mpd/mpd.pid
 	sudo systemctl enable sddm
 	systemctl --user enable mpd.service
     clear

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Import Current Theme
+DIR="$HOME/.config/rofi/"
+STYLE="default"
+RASI="$DIR/rasi/launcher.rasi"
+
+# Run
+rofi \
+    -show drun \
+	-theme ${RASI}

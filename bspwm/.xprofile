@@ -1,4 +1,5 @@
 feh --bg-fill ~/wallpaper.jpg &
+xrandr -s 1600x900
 mpd &
 polybar &
 sxhkd &

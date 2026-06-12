@@ -6,13 +6,14 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 bspc monitor -d 1 2 3 4
 
 # Set Padding For PolyBar
-bspc config top_padding         28
+bspc config top_padding         38
 bspc config bottom_padding       0
 bspc config left_padding         0
 bspc config right_padding        0
 
-bspc config border_width         2
-bspc config window_gap          12
+# Set Border Width and Window Gap
+bspc config border_width         1
+bspc config window_gap           4
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true

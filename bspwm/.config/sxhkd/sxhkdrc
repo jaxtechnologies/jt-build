@@ -1,8 +1,12 @@
 #
-# wm independent hotkeys
+# application hotkeys
 #
 
-# terminal emulator
+# close and kill window
+super + q
+	bspc node -{c,k}
+
+# terminal
 super + Return
 	alacritty
 
@@ -14,25 +18,26 @@ super + b
 super + f
 	thunar
 
-# program launcher
-super + @space
-	dmenu_run
+# menu - rofi
+super + m
+	rofi-launcher
+
+# run - rofi
+super + r
+	rofi-runner
 
 # make sxhkd reload its configuration files:
-super + Escape
+shift + ctrl + r
+#super + Escape
 	pkill -USR1 -x sxhkd
+
+# quit/restart bspwm
+shift + ctrl + q
+	bspc {quit,wm -r}
 
 #
 # bspwm hotkeys
 #
-
-# quit/restart bspwm
-super + alt + {q,r}
-	bspc {quit,wm -r}
-
-# close and kill
-super + {_,shift + }w
-	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
 super + m

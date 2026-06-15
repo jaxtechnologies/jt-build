@@ -19,7 +19,7 @@
 # Import Current Theme
 DIR="$HOME/.config/rofi/"
 STYLE="default"
-RASI="$DIR/rasi/bluetooth.rasi"
+RASI="$DIR/bluetooth.rasi"
 
 # Constants
 divider="---------"

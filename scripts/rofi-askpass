@@ -3,7 +3,7 @@
 # Import Current Theme
 DIR="$HOME/.config/rofi/"
 STYLE="default"
-RASI="$DIR/rasi/askpass.rasi"
+RASI="$DIR/askpass.rasi"
 
 # rofi text dialog to get password
 rofi -dmenu \

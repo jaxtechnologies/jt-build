@@ -22,6 +22,10 @@ super + f
 super + m
 	rofi-launcher
 
+# powermenu - rofi
+super + p
+	rofi-powermenu
+
 # run - rofi
 super + r
 	rofi-runner

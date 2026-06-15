@@ -148,6 +148,7 @@ install_bspwm () {
 	[ ! -d ~/.config/sxhkd/ ] && mkdir -p ~/.config/sxhkd/
 	[ ! -d ~/.config/mpd ] && mkdir -p ~/.config/mpd/
     [ ! -d ~/.config/ncmpcpp ] && mkdir -p ~/.config/ncmpcpp/
+	[ ! -d ~/.config/networkmanager-dmenu ] && mkdir -p ~/.config/networkmanager-dmenu/
 	[ ! -d ~/.config/polybar/ ] && mkdir -p ~/.config/polybar/
 	[ ! -d ~/.config/rofi ] && mkdir -p ~/.config/rofi/
 	[ ! -d ~/.local/bin/ ] && mkdir -p ~/.local/bin/
@@ -162,6 +163,7 @@ install_bspwm () {
 	cp $INSTALL_PATH/bspwm/.config/sxhkd/* ~/.config/sxhkd/
 	cp $INSTALL_PATH/bspwm/.config/mpd/* ~/.config/mpd/
     cp $INSTALL_PATH/bspwm/.config/ncmpcpp/* ~/.config/ncmpcpp/
+	cp $INSTALL_PATH/bspwm/.config/networkmanager-dmenu/* ~/.config/networkmanager-dmenu/
     cp $INSTALL_PATH/bspwm/.config/polybar/* ~/.config/polybar/
 	cp $INSTALL_PATH/bspwm/.xprofile ~/
 	cp -r $INSTALL_PATH/rofi/* ~/.config/rofi/

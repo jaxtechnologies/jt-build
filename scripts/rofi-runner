@@ -3,7 +3,7 @@
 # Import Current Theme
 DIR="$HOME/.config/rofi/"
 STYLE="default"
-RASI="$DIR/rasi/runner.rasi"
+RASI="$DIR/runner.rasi"
 
 # Run
 rofi \

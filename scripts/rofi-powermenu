@@ -3,8 +3,8 @@
 # Import Current Theme
 DIR="$HOME/.config/rofi/"
 STYLE="default"
-RASI="$DIR/rasi/powermenu.rasi"
-CNFR="$DIR/rasi/confirm.rasi"
+RASI="$DIR/powermenu.rasi"
+CNFR="$DIR/confirm.rasi"
 
 # Theme Elements
 prompt="`hostname` (`echo $DESKTOP_SESSION`)"

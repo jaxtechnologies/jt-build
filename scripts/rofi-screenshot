@@ -3,7 +3,7 @@
 # Import Current Theme
 DIR="$HOME/.config/rofi/"
 STYLE="default"
-RASI="$DIR/rasi/screenshot.rasi"
+RASI="$DIR/screenshot.rasi"
 
 # Theme Elements
 prompt='Screenshot'

@@ -150,6 +150,7 @@ install_bspwm () {
     [ ! -d ~/.config/ncmpcpp ] && mkdir -p ~/.config/ncmpcpp/
 	[ ! -d ~/.config/polybar/ ] && mkdir -p ~/.config/polybar/
 	[ ! -d ~/.config/rofi ] && mkdir -p ~/.config/rofi/
+	[ ! -d ~/.local/bin/ ] && mkdir -p ~/.local/bin/
 	[ ! -d ~/Music ] && mkdir -p ~/Music/
 	sudo pacman -Syu --noconfirm
 	sudo pacman -S --needed --noconfirm bspwm dmenu feh mpc mpd ncmpcpp picom polybar rofi sddm sxhkd thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman \
@@ -162,9 +163,10 @@ install_bspwm () {
 	cp $INSTALL_PATH/bspwm/.config/mpd/* ~/.config/mpd/
     cp $INSTALL_PATH/bspwm/.config/ncmpcpp/* ~/.config/ncmpcpp/
     cp $INSTALL_PATH/bspwm/.config/polybar/* ~/.config/polybar/
-	cp -r $INSTALL_PATH/rofi/* ~/.config/rofi/
 	cp $INSTALL_PATH/bspwm/.xprofile ~/
+	cp -r $INSTALL_PATH/rofi/* ~/.config/rofi/
 	cp -r $INSTALL_PATH/music/* ~/Music/
+	cp -r $INSTALL_PATH/scripts/* ~/.local/bin/
 	touch ~/.config/mpd/mpd.db
     touch ~/.config/mpd/mpd.log
     touch ~/.config/mpd/mpd.pid

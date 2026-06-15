@@ -3,7 +3,7 @@
 # Import Current Theme
 DIR="$HOME/.config/rofi/"
 STYLE="default"
-RASI="$DIR/rasi/music.rasi"
+RASI="$DIR/music.rasi"
 
 # Theme Elements
 status="`mpc status`"

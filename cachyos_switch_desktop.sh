@@ -136,6 +136,36 @@ remove_qtile () {
 }
 
 ########################################
+##### GET & SET POLYBAR VARIABLES
+########################################
+
+SYSFILE="~/.config/polybar/system.ini" 
+
+## Get system variable values for various polybar modules
+get_polybar_values() {
+	ADAPTER=$(upower -i `upower -e | grep 'AC'` | grep 'native-path' | cut -d':' -f2 | tr -d '[:blank:]')
+	BATTERY=$(upower -i `upower -e | grep 'BAT'` | grep 'native-path' | cut -d':' -f2 | tr -d '[:blank:]')
+	CARD=$(light -L | grep 'backlight' | head -n1 | cut -d'/' -f3)
+	INTERFACE=$(ip link | awk '/state UP/ {print $2}' | tr -d :)
+}
+
+## Write values to `system.ini` file
+set_polybar_values() {
+	if [[ -n "$ADAPTER" ]]; then
+		sed -i -e "s/sys_adapter = .*/sys_adapter = $ADAPTER/g" 						${SYSFILE}
+	fi
+	if [[ -n "$BATTERY" ]]; then
+		sed -i -e "s/sys_battery = .*/sys_battery = $BATTERY/g" 						${SYSFILE}
+	fi
+	if [[ -n "$CARD" ]]; then
+		sed -i -e "s/sys_graphics_card = .*/sys_graphics_card = $CARD/g" 				${SYSFILE}
+	fi
+	if [[ -n "$INTERFACE" ]]; then
+		sed -i -e "s/sys_network_interface = .*/sys_network_interface = $INTERFACE/g" 	${SYSFILE}
+	fi
+}
+
+########################################
 ##### INSTALL NEW DESKTOP ENVIRONMENT
 ########################################
 

@@ -209,6 +209,10 @@ install_bspwm () {
     clear
     echo ""
     echo " bspwm installed. Please reboot and select bspwm Session from the login screen to start using it."
+	echo $ADAPTER
+	echo $BATTERY
+	echo $CARD
+	echo $INTERFACE
     sleep 10
     exit_menu
 }

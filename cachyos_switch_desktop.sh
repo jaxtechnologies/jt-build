@@ -160,8 +160,10 @@ set_polybar_values() {
 	if [[ -n "$CARD" ]]; then
 		sed -i -e "s/sys_graphics_card = .*/sys_graphics_card = $CARD/g" ${SYSFILE}
 	fi
-	if [[ -n "$INTERFACE" ]]; then
-		sed -i -e "s/sys_network_interface = .*/sys_network_interface = $INTERFACE/g" ${SYSFILE}
+	if [[ $INTERFACE == en* || $INTERFACE == eth* ]]; then
+		sed -i -e "s/sys_ethernet_interface = .*/sys_ethernet_interface = $INTERFACE/g" ${SYSFILE}
+	elif [[ $INTERFACE == wl* ]]; then
+		sed -i -e "s/sys_wireless_interface = .*/sys_wireless_interface = $INTERFACE/g" ${SYSFILE}
 	fi
 }
 

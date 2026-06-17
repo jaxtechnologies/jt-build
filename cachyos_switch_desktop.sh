@@ -139,7 +139,7 @@ remove_qtile () {
 ##### GET & SET POLYBAR VARIABLES
 ########################################
 
-SYSFILE="~/.config/polybar/system.ini" 
+SYSFILE="$HOME/.config/polybar/system.ini" 
 
 ## Get system variable values for various polybar modules
 get_polybar_values() {

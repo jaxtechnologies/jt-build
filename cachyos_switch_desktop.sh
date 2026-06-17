@@ -211,7 +211,7 @@ install_bspwm () {
     clear
     echo ""
     echo " bspwm installed. Please reboot and select bspwm Session from the login screen to start using it."
-    sleep 10
+    sleep 5
     exit_menu
 }
 
@@ -226,7 +226,7 @@ install_cinnamon () {
     clear
     echo ""
     echo " Cinnamon installed. Please reboot and select Cinnamon Session from the login screen to start using it."
-    sleep 10
+    sleep 5
     exit_menu
 }
 
@@ -241,7 +241,7 @@ install_cosmic () {
     clear
     echo ""
     echo " Cosmic installed. Please reboot and select Cosmic Session from the login screen to start using it."
-    sleep 10
+    sleep 5
     exit_menu
 }
 
@@ -257,7 +257,7 @@ install_gnome () {
     clear
     echo ""
     echo " Gnome installed. Please reboot and select Gnome Session from the login screen to start using it."
-    sleep 10
+    sleep 5
     exit_menu
 }
 
@@ -273,7 +273,7 @@ install_i3 () {
     clear
     echo ""
     echo " i3 installed. Please reboot and select i3 Session from the login screen to start using it."
-    sleep 10
+    sleep 5
     exit_menu
 }
 
@@ -288,7 +288,7 @@ install_kde () {
     clear
     echo ""
     echo " KDE Plasma installed. Please reboot and select KDE Plasma Session from the login screen to start using it."
-    sleep 10
+    sleep 5
     exit_menu
 }
 
@@ -303,7 +303,7 @@ install_niri () {
     clear
     echo ""
     echo " Niri installed. Please reboot and select Niri Session from the login screen to start using it."
-    sleep 10
+    sleep 5
     exit_menu
 }
 
@@ -375,7 +375,7 @@ install_openbox () {
     clear
     echo ""
     echo " Openbox installed. Please reboot and select Openbox Session from the login screen to start using it."
-    sleep 10
+    sleep 5
     exit_menu
 }
 
@@ -391,7 +391,7 @@ install_qtile () {
     clear
     echo ""
     echo " Qtile installed. Please reboot and select Qtile Session from the login screen to start using it."
-    sleep 10
+    sleep 5
     exit_menu
 }
 

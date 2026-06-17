@@ -202,6 +202,8 @@ install_bspwm () {
 	touch ~/.config/mpd/mpd.db
     touch ~/.config/mpd/mpd.log
     touch ~/.config/mpd/mpd.pid
+	get_polybar_values
+	set_polybar_values
 	sudo systemctl enable sddm
 	systemctl --user enable mpd.service
     clear

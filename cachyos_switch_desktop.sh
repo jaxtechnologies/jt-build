@@ -152,16 +152,16 @@ get_polybar_values() {
 ## Write values to `system.ini` file
 set_polybar_values() {
 	if [[ -n "$ADAPTER" ]]; then
-		sed -i -e "s/sys_adapter = .*/sys_adapter = $ADAPTER/g" 						${SYSFILE}
+		sed -i -e "s/sys_adapter = .*/sys_adapter = $ADAPTER/g" ${SYSFILE}
 	fi
 	if [[ -n "$BATTERY" ]]; then
-		sed -i -e "s/sys_battery = .*/sys_battery = $BATTERY/g" 						${SYSFILE}
+		sed -i -e "s/sys_battery = .*/sys_battery = $BATTERY/g" ${SYSFILE}
 	fi
 	if [[ -n "$CARD" ]]; then
-		sed -i -e "s/sys_graphics_card = .*/sys_graphics_card = $CARD/g" 				${SYSFILE}
+		sed -i -e "s/sys_graphics_card = .*/sys_graphics_card = $CARD/g" ${SYSFILE}
 	fi
 	if [[ -n "$INTERFACE" ]]; then
-		sed -i -e "s/sys_network_interface = .*/sys_network_interface = $INTERFACE/g" 	${SYSFILE}
+		sed -i -e "s/sys_network_interface = .*/sys_network_interface = $INTERFACE/g" ${SYSFILE}
 	fi
 }
 

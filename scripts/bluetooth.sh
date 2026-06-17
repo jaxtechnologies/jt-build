@@ -4,10 +4,12 @@
 
 # Colors
 #DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-DIR="~/.config/polybar/colors.ini"
+#DIR="~/.config/polybar/colors.ini"
 #CDIR=$(cd "$DIR" && cd .. && pwd)
-POWER_ON=$(grep 'GREEN' < $DIR | head -n1 | cut -d '=' -f2 | tr -d ' ')
-POWER_OFF=$(grep 'ALTFOREGROUND' < $DIR | head -n1 | cut -d '=' -f2 | tr -d ' ')
+#POWER_ON=$(grep 'GREEN' < $DIR | head -n1 | cut -d '=' -f2 | tr -d ' ')
+#POWER_OFF=$(grep 'ALTFOREGROUND' < $DIR | head -n1 | cut -d '=' -f2 | tr -d ' ')
+POWER_ON="#98C379"
+POWER_OFF="#5a6477"
 
 # Checks if bluetooth controller is powered on
 power_on() {

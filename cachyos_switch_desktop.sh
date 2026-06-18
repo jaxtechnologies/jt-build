@@ -186,7 +186,7 @@ install_bspwm () {
 	[ ! -d ~/.local/bin/ ] && mkdir -p ~/.local/bin/
 	[ ! -d ~/Music ] && mkdir -p ~/Music/
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --needed --noconfirm bspwm dmenu dunst feh mpc mpd ncmpcpp nm-connection-editor picom polybar rofi sddm slock sxhkd thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman \
+	sudo pacman -S --needed --noconfirm brightnessctl bspwm dmenu dunst feh mpc mpd ncmpcpp nm-connection-editor picom polybar rofi sddm slock sxhkd thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman \
 	xorg-xinit xorg-xsetroot
     sleep 10
 	rsync -a /etc/skel/.config ~/

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PACKAGE_ICON='󰏔'
+#PACKAGE_ICON=''
 
 # Check official repositories
 if ! updates_arch=$(checkupdates 2> /dev/null | wc -l ); then

@@ -4,7 +4,7 @@
 
 # Colors
 POWER_ON="#98C379"
-POWER_OFF="#5a6477"
+POWER_OFF="#E06B74"
 
 # Checks if bluetooth controller is powered on
 power_on() {

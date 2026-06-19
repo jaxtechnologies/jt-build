@@ -18,8 +18,7 @@ updates=$((updates_arch + updates_aur))
 
 # Output the result for Polybar
 if [ "$updates" -gt 0 ]; then
-    echo " $PACKAGE_ICON $updates "
+    echo " %{F#E06B74}$PACKAGE_ICON%{F-} $updates "
 else
-    echo " $PACKAGE_ICON 0 "
+    echo " %{F#98C379}$PACKAGE_ICON%{F-} 0 "
 fi
-

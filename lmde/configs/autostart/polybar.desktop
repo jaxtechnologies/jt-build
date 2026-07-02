@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Polybar
+Exec=polybar
+X-GNOME-Autostart-Delay=2
+Comment[en_US]=StartupPolybar

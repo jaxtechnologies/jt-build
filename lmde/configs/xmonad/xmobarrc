@@ -1,0 +1,40 @@
+--
+--   ████████╗  █████╗  ██╗   ██╗  ████████╗ ███████╗  ██████╗ ██╗  ██╗
+--   ╚══██╔══╝ ██╔══██╗  ██╗ ██╔╝  ╚══██╔══╝ ██╔════╝ ██╔════╝ ██║  ██║
+--      ██║    ███████║   ████╔╝      ██║    ███████╗ ██║      ███████║
+--   ██ ██║    ██╔══██║  ██╔╝██╗      ██║    ██╔════╝ ██║      ██╔══██║
+--   ╚███╔╝    ██║  ██║ ██╔╝  ██╗     ██║    ███████╗ ╚██████╗ ██║  ██║
+--    ╚══╝     ╚═╝  ╚═╝ ╚═╝   ╚═╝     ╚═╝    ╚══════╝  ╚═════╝ ╚═╝  ╚═╝
+--
+-- Custom xmobar file for JaxTech
+--
+-- Weather codes for my area are KNIP (Jacksonville NAS) & KSGJ (St. Augustine)
+-- Codes follow the ICAO airport code system
+-- The weather code needs to be changed in two places in this file 
+--
+-- Typical Network Adapters
+-- enp0s3 - vm
+-- enp2s0f0 - dell optiplex 9020
+-- wlp2s0 - dell latitude e4310
+
+Config { font = "xft:Sans:pixelsize=12:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:FontAwesome:pixelsize=13" ]
+       , bgColor = "black"
+       , fgColor = "white"
+       , position = Top
+       , lowerOnStart = True
+       , hideOnStart = False
+       , allDesktops = True
+       , persistent = True
+       , iconRoot = "/home/jt/.config/xmonad/"  -- default: "."
+       , commands = [ Run Date "%a, %b %d, %I:%M %p" "date" 10
+                    , Run Uptime ["-t", "up: <days>d <hours>h <minutes>m"] 360
+                    , Run Cpu ["-t", "cpu: (<total>%)","-L","1","-H","50","--normal","green","--high","red"] 10
+                    , Run Memory ["-t", "mem: <used>M (<usedratio>%)"] 10
+                    , Run DiskU [("/", "hdd: (<free>) free")] [] 3600
+                    , Run Network "enp2s0f0" ["-L","1","-H","32","--normal","green","--high","red"] 10
+                    , Run Weather "KSGJ" ["-t","<station>: <tempF> F","-L","32","-H","80","--normal","green","--high","red","--low","lightblue"] 36000
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " <icon=haskell_20.xpm/>    %enp2s0f0%   %uptime% }  { %cpu%    %memory%    %disku%    %KSGJ%    %date%"}

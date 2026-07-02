@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=sh -c "sxhkd -c $HOME/.config/sxhkd/sxhkdrc"
+X-GNOME-Autostart-enabled=true
+NoDisplay=false
+Hidden=false
+Name[en_US]=SXHKD-KeyBindings
+Comment[en_US]=SXHKD KeyBindings
+X-GNOME-Autostart-Delay=0

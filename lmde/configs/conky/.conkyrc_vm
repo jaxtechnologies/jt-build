@@ -1,0 +1,94 @@
+-- # STOP CONKY FROM FLICKERING  # double_buffer = true,
+
+conky.config = {
+alignment = 'top_right',
+color1 = '1EB5FF',  --blue
+color2 = '30DDFB',  --light blue
+color3 = '0090ff',  --dark blue
+color4 = '98FF76',  --lime
+default_color = 'ECEAE4',  --off-white
+default_shade_color = '000000',
+display = ':0.0',
+nvidia_display = ':0.0',
+double_buffer = true,
+draw_borders = false,
+draw_outline = false,
+draw_shades = true,
+font = 'ubuntu:size=10',
+gap_x = 5,
+gap_y = 0,
+maximum_width = 400,
+no_buffers = true,
+override_utf8_locale = true,
+own_window = true,
+own_window_type = 'desktop',
+own_window_transparent = false,
+own_window_argb_visual = true,
+own_window_argb_value = 145,
+own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+stippled_borders = 0,
+text_buffer_size = 2048,
+total_run_times = 0,
+update_interval = 1.0,
+uppercase = false,
+use_xft = true,
+xftalpha = 0.5,
+}
+
+conky.text = [[
+#${color}Today is: $alignr ${color green} ${time %A,}$alignr ${time %e %B %G}
+${color}Hostname: $alignr ${color green} $nodename
+${color}Distribution: $alignr ${color green} ${execpi 0 cat /etc/issue.net} $machine
+${color}Kernel: $alignr ${color green} $kernel
+${color}Uptime: $alignr ${color green} $uptime
+${color}Time (24hr): $alignr ${color green} ${time %H:%M:%S}
+${color}Sunrise / Sunset: $alignr ${color green} ${execpi 300 cat /usr/local/bin/sunrise} / ${execpi 300 cat /usr/local/bin/sunset}
+
+#MEMORY
+${color orange}${voffset 2}MEMORY ${hr 2}
+${color1}RAM:${goto 65}${color green}$mem / $memmax ${goto 193}${color green}$memperc% ${goto 235}${color3}${membar 12}
+${color1}Swap:${goto 65}${color green}$swap / $swapmax ${goto 193}${color green}$swapperc% ${goto 235}${color3}${swapbar 12}
+${color1}Entropy:${goto 80}${color green}${entropy_avail} / ${entropy_poolsize} ${goto 193}${color green}${entropy_perc}% ${goto 235}${color3}${entropy_bar 12}
+
+#FILESYSTEM
+${color orange}${voffset 2}FILESYSTEM ${hr 2}
+${color1}FS  /:${goto 65}${color green}${fs_used /} / ${fs_size /} ${goto 193}${color green}${fs_used_perc /}% ${goto 235}${color3}${fs_bar 12}
+${color1}Disk I/O Write: ${color green}${goto 120}${diskio_write sda1} ${color1}${goto 200}Disk I/O Read: ${color green}${goto 320}${diskio_read sda1}
+${color red}${diskiograph_write 20,190 000000 ff0000} ${alignr}${color green}${diskiograph_read 20,190 000000 00ff00}
+
+#PROCESSORS
+${color orange}${voffset 2}PROCESSORS  ${hr 2}
+${color2}${voffset 5}${execpi .001 (cat /proc/cpuinfo) | grep 'model name' | sort -u | cut -c13-54}   
+${color}${goto 13}Core 1 ${color2}@ ${goto 77}${color green}${freq 1}MHz ${goto 165}${color green}${cpu cpu1}% ${goto 200}${color3}${cpubar cpu1 12}
+${color1}CPU Avg: ${goto 77}${color green}${cpu cpu0}% ${goto 110}${color3}${cpubar cpu0 12}
+${color3}${cpugraph cpu0 12,380 0000ff ff0000}
+${color1}Load Avg: (1-5-15 minutes) ${alignr}${color green} $loadavg
+#${color1}CPU Temp: ${color green}${hwmon 3 temp 1} °C
+
+#PROCESSES
+${color orange}${voffset 2}PROCESSES  ${hr 2}
+${color1}${voffset 5}Process by CPU: ${goto 215}PID ${goto 265}CPU% ${goto 337}Mem%
+${color red}${goto 13}${top name 1} ${goto 210}${top pid 1} ${goto 275}${top cpu 1} ${goto 350}${top mem 1}
+${color red}${goto 13}${top name 2} ${goto 210}${top pid 2} ${goto 275}${top cpu 2} ${goto 350}${top mem 2}
+${color orange}${goto 13}${top name 3} ${goto 210}${top pid 3} ${goto 275}${top cpu 3} ${goto 350}${top mem 3}
+${color yellow}${goto 13}${top name 4} ${goto 210}${top pid 4} ${goto 275}${top cpu 4} ${goto 350}${top mem 4}
+${color green}${goto 13}${top name 5} ${goto 210}${top pid 5} ${goto 275}${top cpu 5} ${goto 350}${top mem 5}
+${color1}${voffset 5}Process by MEM: ${goto 215}PID ${goto 265}CPU% ${goto 337}Mem%
+${color red}${goto 13}${top_mem name 1}	${goto 210}${top_mem pid 1} ${goto 275}${top_mem cpu 1} ${goto 350}${top_mem mem 1}
+${color red}${goto 13}${top_mem name 2} ${goto 210}${top_mem pid 2} ${goto 275}${top_mem cpu 2} ${goto 350}${top_mem mem 2}
+${color orange}${goto 13}${top_mem name 3} ${goto 210}${top_mem pid 3} ${goto 275}${top_mem cpu 3} ${goto 350}${top_mem mem 3}
+${color yellow}${goto 13}${top_mem name 4} ${goto 210}${top_mem pid 4} ${goto 275}${top_mem cpu 4} ${goto 350}${top_mem mem 4}
+${color green}${goto 13}${top_mem name 5}	${goto 210}${top_mem pid 5} ${goto 275}${top_mem cpu 5} ${goto 350}${top_mem mem 5}
+${color1}${voffset 5}Processes: ${goto 210}Running:${color green} $running_processes ${goto 315}${color1} Total:${color green} $processes
+
+#NETWORK
+${color orange}${voffset 2}NETWORK  ${hr 2}
+${color1}IP on enp0s3 $alignr ${color green}${addr enp0s3}
+
+${color1}Network stats using vnStat "-i", "-w" and "-m"
+${color}${goto 5}Today ${goto 100}Yesterday ${goto 225}Week ${goto 325}Month ${color green}
+${execi 10 vnstat -i enp0s3 | grep "today" | awk '{print $8" "substr ($9, 1, 1)}'} ${goto 110}${execi 10 vnstat -i enp0s3 | grep "yesterday" | awk '{print $8" "substr ($9, 1, 1)}'} ${goto 220}${execi 10 vnstat -i enp0s3 -w | grep "current week" | awk '{print $9" "substr ($10, 1, 1)}'} ${goto 315}${execi 10 vnstat -i enp0s3 -m | grep "`date +"%b '%y"`" | awk '{print $9" "substr ($10, 1, 1)}'}
+
+${color1}Down: ${color green}${goto 50}${downspeed enp0s3} ${goto 100}/ ${goto 120}${totaldown enp0s3} ${color1}${goto 200}Up: ${color green}${goto 250}${upspeed enp0s3} ${goto 300}/ ${goto 320}${totalup enp0s3}
+${color red}${downspeedgraph enp0s3 20,190 000000 ff0000} ${alignr}${color green}${upspeedgraph enp0s3 20,190 000000 00ff00}
+]]

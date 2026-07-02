@@ -1,0 +1,26 @@
+
+maybe test qemu and virt-manager?
+sudo apt install qemu-system libvirt-daemon-system libvirt-clients bridge-utils virt-manager -y
+
+citrix workspace
+
+teams
+
+edge
+
+mysql-workbench or alternative
+
+netbeans
+
+sqldeveloper (zipped)
+
+burnaware-free or alternative
+
+7zip or alternative
+
+
+MAC Theme Test The Following To Get MAC Like Menu
+https://www.makeuseof.com/tag/get-unitys-global-app-menu-linux-mint-cinnamon/
+
+Windows Themes to possibly look at
+https://github.com/B00merang-Project/Redmond-Themes

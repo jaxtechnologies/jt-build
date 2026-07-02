@@ -1,0 +1,10 @@
+super + shift + i
+  firefox
+super + shift + t
+  alacritty
+super + shift + f
+  nemo
+super + shift + m
+  alacritty -e ncmpcpp
+super + shift + h
+  gxmessage -geometry 400x600 -timeout 0 -file ~/keybindings

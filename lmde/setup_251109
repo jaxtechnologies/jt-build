@@ -1,0 +1,831 @@
+#!/usr/bin/env bash
+# NAME: JTOS
+# DESC: An installation and deployment script for JaxTech's Debian desktop.
+# Adapted from Derek Taylor's (DistroTube) DTOS script...
+# Top logo inspiration came from Chris Titus's ArchTitus script...
+# Whiptail wiki: https://en.wikibooks.org/wiki/Bash_Shell_Scripting/Whiptail
+
+INSTALL_PATH=$(pwd)
+LOG=$INSTALL_PATH/setup.log
+rm $LOG > /dev/null 2>&1
+
+clear
+
+echo -ne "
+   ████████╗  █████╗  ██╗   ██╗  ████████╗ ███████╗  ██████╗ ██╗  ██╗
+   ╚══██╔══╝ ██╔══██╗  ██╗ ██╔╝  ╚══██╔══╝ ██╔════╝ ██╔════╝ ██║  ██║
+      ██║    ███████║   ████╔╝      ██║    ███████╗ ██║      ███████║
+   ██ ██║    ██╔══██║  ██╔╝██╗      ██║    ██╔════╝ ██║      ██╔══██║
+   ╚███╔╝    ██║  ██║ ██╔╝  ██╗     ██║    ███████╗ ╚██████╗ ██║  ██║
+    ╚══╝     ╚═╝  ╚═╝ ╚═╝   ╚═╝     ╚═╝    ╚══════╝  ╚═════╝ ╚═╝  ╚═╝
+"
+echo ""
+echo " JTOS Setup Script will launch in 5 seconds..."
+
+sleep 5
+
+clear
+sudo apt update
+
+### Whiptail Colors: See this thread for more info: https://askubuntu.com/questions/776831/whiptail-change-background-color-dynamically-from-magenta/781062
+export NEWT_COLORS="
+root=,blue
+window=,white
+shadow=,black
+border=black,white
+title=red,white
+textbox=black,white
+radiolist=black,white
+label=black,blue
+checkbox=black,white
+compactbutton=black,white
+button=white,red"
+
+#####################################################################################################
+#################################### START OF WHIPTAIL FUNCTIONS ####################################
+#####################################################################################################
+max() {
+    echo -e "$1\n$2" | sort -n | tail -1
+}
+
+getbiggestword() {
+    echo "$@" | sed "s/ /\n/g" | wc -L
+}
+
+replicate() {
+    local n="$1"
+    local x="$2"
+    local str
+
+    for _ in $(seq 1 "$n"); do
+        str="$str$x"
+    done
+    echo "$str"
+}
+
+programchoices() {
+    choices=()
+    local maxlen; maxlen="$(getbiggestword "${!checkboxes[@]}")"
+    linesize="$(max "$maxlen" 42)"
+    local spacer; spacer="$(replicate "$((linesize - maxlen))" " ")"
+
+    for key in "${!checkboxes[@]}"
+    do
+        # A portable way to check if a command exists in $PATH and is executable.
+        # If it doesn't exist, we set the tick box to OFF.
+        # If it exists, then we set the tick box to ON.
+        if ! command -v "${checkboxes[$key]}" > /dev/null; then
+            # $spacer length is defined in the individual window functions based
+            # on the needed length to make the checkbox wide enough to fit window.
+            choices+=("${key}" "${spacer}" "OFF")
+        else
+            choices+=("${key}" "${spacer}" "ON")
+        fi
+    done
+}
+
+selectedprograms() {
+    result=$(
+        # Creates the whiptail checklist. Also, we use a nifty
+        # trick to swap stdout and stderr.
+        whiptail --title "$title"                               \
+                 --checklist "$text" 22 "$((linesize + 16))" 12 \
+                 "${choices[@]}"                                \
+                 3>&2 2>&1 1>&3
+    )
+}
+
+exitorinstall() {
+    exitstatus=$?
+    # Check the exit status, if 0 we will install the selected
+    # packages. A command which exits with zero (0) has succeeded.
+    # A non-zero (1-255) exit status indicates failure.
+    if [ $exitstatus = 0 ]; then
+        # Take the results and remove the "'s and add new lines.
+        # Otherwise, pacman is not going to like how we feed it.
+        programs=$(echo "$result" | sed 's/" /\n/g' | sed 's/"//g' )
+        echo $programs
+        #sudo apt-get -y install $programs || \
+	sudo nala install $programs -y || \
+        echo "Failed to install required packages."
+    else
+        echo "User selected Cancel."
+    fi
+}
+
+# Call the function with any number of applications as arguments. example:
+# install "Title" "Description" "Program-1-KEY" "Program-1-VALUE" "Program-2-KEY" "Program-2-VALUE" ...
+# Note an empty string "" means that the KEY and the VALUE are the same like "firefox" "firefox" instead you can write "firefox" ""
+
+browsers () {
+    title="Web Browsers"
+    text="Select one or more web browsers to install.\nAll programs marked with '*' are already installed.\nUnselecting them will NOT uninstall them."
+    spacer=$(for i in $(seq 1 38); do echo -n " "; done)
+
+    local -A checkboxes
+    checkboxes["chromium"]="chromium"
+    checkboxes["falkon"]="falkon"
+    checkboxes["qutebrowser"]="qutebrowser"
+
+    programchoices && selectedprograms && exitorinstall
+}
+
+otherinternet () {
+    title="Other Internet Programs"
+    text="Other Internet programs available for installation.\nAll programs marked with '*' are already installed.\nUnselecting them will NOT uninstall them."
+    spacer=$(for i in $(seq 1 47); do echo -n " "; done)
+
+    local -A checkboxes
+    checkboxes["filezilla"]="filezilla"
+    checkboxes["remmina"]="remmina"
+    checkboxes["transmission-gtk"]="transmission-gtk"
+
+    programchoices && selectedprograms && exitorinstall
+}
+
+devops () {
+    title="DevOps Programs"
+    text="DevOp programs available for installation.\nAll programs marked with '*' are already installed.\nUnselecting them will NOT uninstall them."
+    spacer=$(for i in $(seq 1 46); do echo -n " "; done)
+
+    local -A checkboxes
+    checkboxes["adb"]="adb"
+    checkboxes["fastboot"]="fastboot"
+    checkboxes["docker.io"]="docker.io"
+    checkboxes["docker-compose"]="docker-compose"
+    checkboxes["python3-pip"]="python3-pip"
+    checkboxes["python3-tk"]="python3-tk"
+    checkboxes["python3.11-venv"]="python3.11-venv"
+    checkboxes["sqlitebrowser"]="sqlitebrowser"
+    checkboxes["sublime-text"]="sublime-text"
+
+    programchoices && selectedprograms && exitorinstall
+}
+
+graphics () {
+    title="Graphics Programs"
+    text="Graphics programs available for installation.\nAll programs marked with '*' are already installed.\nUnselecting them will NOT uninstall them."
+    spacer=$(for i in $(seq 1 53); do echo -n " "; done)
+
+    local -A checkboxes
+    checkboxes["digikam"]="digikam"
+    checkboxes["gimp"]="gimp"
+    checkboxes["inkscape"]="inkscape"
+    checkboxes["krita"]="krita"
+    checkboxes["ksnip"]="ksnip"
+
+    programchoices && selectedprograms && exitorinstall
+}
+
+multimedia () {
+    title="Multimedia Programs"
+    text="Multimedia programs available for installation.\nAll programs marked with '*' are already installed.\nUnselecting them will NOT uninstall them."
+    spacer=$(for i in $(seq 1 53); do echo -n " "; done)
+
+    local -A checkboxes
+    checkboxes["cheese"]="cheese"
+    checkboxes["guvcview"]="guvcview"
+    checkboxes["handbrake"]="handbrake"
+    checkboxes["kdenlive"]="kdenlive"
+    checkboxes["obs-studio"]="obs-studio"
+    checkboxes["openshot-qt"]="openshot-qt"
+    checkboxes["rhythmbox"]="rhythmbox"
+    checkboxes["vlc"]="vlc"
+
+    programchoices && selectedprograms && exitorinstall
+}
+
+office () {
+    title="Office Programs"
+    text="Office and productivity programs available for installation.\nAll programs marked with '*' are already installed.\nUnselecting them will NOT uninstall them."
+    spacer=$(for i in $(seq 1 46); do echo -n " "; done)
+
+    local -A checkboxes
+    checkboxes["okular"]="okular"
+    checkboxes["pdfarranger"]="pdfarranger"
+    checkboxes["pdfgrep"]="pdfgrep"
+    checkboxes["scribus"]="scribus"
+    checkboxes["scribus-template"]="scribus-template"
+
+    programchoices && selectedprograms && exitorinstall
+}
+
+utilities () {
+    title="Utility Programs"
+    text="Utility and productivity programs available for installation.\nAll programs marked with '*' are already installed.\nUnselecting them will NOT uninstall them."
+    spacer=$(for i in $(seq 1 46); do echo -n " "; done)
+
+    local -A checkboxes
+    checkboxes["autokey-gtk"]="autokey-gtk"
+    checkboxes["barrier"]="barrier"
+    checkboxes["brasero"]="brasero"
+    checkboxes["btop"]="btop"
+    checkboxes["htop"]="htop"
+    checkboxes["cmatrix"]="cmatrix"
+    checkboxes["font-manager"]="font-manager"
+    checkboxes["gtkhash"]="gtkhash"
+    checkboxes["keepass2"]="keepass2"
+    checkboxes["kleopatra"]="kleopatra"
+    checkboxes["meld"]="meld"
+    checkboxes["neofetch"]="neofetch"
+    checkboxes["zenmap"]="zenmap"
+
+    programchoices && selectedprograms && exitorinstall
+}
+
+games () {
+    title="Games"
+    text="Gaming programs available for installation.\nAll programs marked with '*' are already installed.\nUnselecting them will NOT uninstall them."
+    spacer=$(for i in $(seq 1 51); do echo -n " "; done)
+
+    local -A checkboxes
+    checkboxes["0ad"]="0ad"
+    checkboxes["frozen-bubble"]="frozen-bubble"
+    checkboxes["kbounce"]="kbounce"
+    checkboxes["neverball"]="neverball"
+    checkboxes["openarena"]="openarena"
+    checkboxes["pingus"]="pingus"
+    checkboxes["steam"]="steam"
+    checkboxes["supertuxkart"]="supertuxkart"
+    checkboxes["wesnoth"]="wesnoth"
+
+    programchoices && selectedprograms && exitorinstall
+}
+
+educational () {
+    title="Educational"
+    text="Educational programs available for installation.\nAll programs marked with '*' are already installed.\nUnselecting them will NOT uninstall them."
+    spacer=$(for i in $(seq 1 51); do echo -n " "; done)
+
+    local -A checkboxes
+    checkboxes["bibletime"]="bibletime"
+    checkboxes["xiphos"]="xiphos"
+
+    programchoices && selectedprograms && exitorinstall
+}
+
+ppa_install_virtualbox () {
+    ############### Install VirtualBox.deb
+    ##### Updates are at https://download.virtualbox.org/virtualbox/7.1.4/virtualbox-7.1_7.1.4-165100~Debian~bookworm_amd64.deb
+    ##### Download the amd64.deb package
+    ##### Required dependencies #####
+    ##### libxcb-cursor0
+    ##### libxcb-icccm4
+    ##### libxcb-image0
+    ##### libxcb-keysyms1
+    ##### libxcb-render-util0
+    ##### libgtk2
+    ##### linux-headers-amd64
+    ##### gcc
+    ##### make
+    sudo nala install libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libgtk2.0-0 linux-headers-amd64 gcc make -y 2>&1
+    sudo dpkg -i virtualbox-7.1_7.1.4-165100~Debian~bookworm_amd64.deb 2>&1 | tee -a $LOG
+    sudo apt-get --fix-broken install 2>&1 | tee -a $LOG
+    sleep 5
+}
+
+ppa_install_powershell () {
+    ############### Install PowerShell.deb
+    ##### Updates are at https://github.com/PowerShell/PowerShell/releases/latest
+    ##### Download the amd64.deb package
+    sudo dpkg -i powershell_7.4.5-1.deb_amd64.deb 2>&1 | tee -a $LOG
+    sleep 5
+}
+
+ppa_install_code () {
+    ############### Install VS Code.deb
+    ##### Updates are at https://code.visualstudio.com/Download#
+    ##### Download the amd64.deb package
+    sudo dpkg -i code_1.92.2-1723660989_amd64.deb 2>&1 | tee -a $LOG
+    sleep 5
+}
+
+ppa_install_balenaetcher () {
+    ############### Install BalenaEtcher.deb
+    ##### Updates are at https://github.com/balena-io/etcher/releases/
+    ##### Download the amd64.deb package
+    [ ! -d /opt/balenaEtcher ] && sudo mkdir -p /opt/balenaEtcher 2>&1 | tee -a $LOG
+    sudo touch /opt/balenaEtcher/chrome-sandbox 2>&1 | tee -a $LOG
+    sudo nala install gconf-service gconf2 libgdk-pixbuf2.0-0 -y 2>&1
+    sudo dpkg -i balena-etcher_1.19.21_amd64.deb 2>&1 | tee -a $LOG
+    sleep 5
+}
+
+ppa_install_moneydance () {
+    ############### Install MoneyDance.deb
+    ##### Updates are at https://infinitekind.com/download-moneydance-personal-finance-software
+    ##### Download the amd64.deb package
+    sudo dpkg -i moneydance_linux_amd64.deb 2>&1 | tee -a $LOG
+    sleep 5
+}
+
+ppa_install_insync () {
+    ############### Install Insync.deb
+    sudo dpkg -i insync_3.9.4.60020-bookworm_amd64.deb 2>&1 | tee -a $LOG
+    sleep 5
+}
+
+ppa_install_cherrytree () {
+    ############### Install CherryTree.deb
+    ##### Required dependencies #####
+    ##### libxml++2.6-2v5
+    ##### libspdlog1.10
+    sudo nala install libxml++2.6-2v5 libspdlog1.10 -y 2>&1
+    sudo dpkg -i cherrytree_1.6.2-2~Debian12_amd64.deb 2>&1 | tee -a $LOG
+    sleep 5
+}
+
+ppa_install_teamviewer () {
+    ############### Install TeamViewer.deb
+    ##### Required dependencies #####
+    ##### libminizip1
+    ##### libxcb-icccm4
+    ##### libxcb-image0
+    ##### libxcb-keysyms1
+    ##### libxcb-render-util0
+    ##### libxcb-xinerama0
+    sudo nala install libminizip1 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 -y 2>&1
+    sudo dpkg -i teamviewer_15.58.4_amd64.deb 2>&1 | tee -a $LOG
+    sleep 5
+}
+
+extra_install_brave () {
+    ############### Install Brave-Browser (Web Browser)
+    flatpak install flathub com.brave.Browser -y 2>&1 | tee -a $LOG
+    sleep 5
+}
+
+extra_install_chrome () {
+    ############### Install Chrome (Web Browser)
+    ### libu2f-udev is a required dependency
+    sudo nala install libu2f-udev fonts-liberation -y 2>&1
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb 2>&1 | tee -a $LOG
+    sudo dpkg -i google-chrome-stable_current_amd64.deb 2>&1 | tee -a $LOG
+    sleep 5
+}
+
+extra_install_portfolio_performance () {
+    ############### Install Portfolio Performance
+    flatpak install flathub info.portfolio_performance.PortfolioPerformance -y 2>&1 | tee -a $LOG
+    sleep 5
+}
+
+setup_polybar () {
+    ############### Install Polybar and Apps
+    sudo nala install polybar mpd mpc ncmpcpp rofi -y 2>&1
+    sudo cp -r $INSTALL_PATH/fonts/jaxtech /usr/share/fonts/ 2>&1 | tee -a $LOG
+    sudo cp $INSTALL_PATH/scripts/* /usr/local/bin/ 2>&1 | tee -a $LOG
+    [ ! -d ~/.config/mpd ] && mkdir -p ~/.config/mpd 2>&1 | tee -a $LOG
+    [ ! -d ~/.config/ncmpcpp ] && mkdir -p ~/.config/ncmpcpp 2>&1 | tee -a $LOG
+    [ ! -d ~/.config/polybar ] && mkdir -p ~/.config/polybar 2>&1 | tee -a $LOG
+    [ ! -d ~/.config/rofi ] && mkdir -p ~/.config/rofi 2>&1 | tee -a $LOG
+    cp $INSTALL_PATH/configs/autostart/mpd.desktop ~/.config/autostart/ 2>&1 | tee -a $LOG
+    cp $INSTALL_PATH/configs/autostart/polybar.desktop ~/.config/autostart/ 2>&1 | tee -a $LOG
+    cp $INSTALL_PATH/configs/mpd/* ~/.config/mpd/ 2>&1 | tee -a $LOG
+    cp $INSTALL_PATH/configs/ncmpcpp/* ~/.config/ncmpcpp/ 2>&1 | tee -a $LOG
+    cp $INSTALL_PATH/configs/polybar/* ~/.config/polybar/ 2>&1 | tee -a $LOG
+    cp -r $INSTALL_PATH/configs/rofi/* ~/.config/rofi/ 2>&1 | tee -a $LOG
+    cp -r $INSTALL_PATH/music/* ~/Music/ 2>&1 | tee -a $LOG
+    touch ~/.config/mpd/mpd.db 2>&1 | tee -a $LOG
+    touch ~/.config/mpd/mpd.log 2>&1 | tee -a $LOG
+    touch ~/.config/mpd/mpd.pid 2>&1 | tee -a $LOG
+    systemctl --user enable mpd.service
+    sleep 5
+}
+
+setup_xmonad () {
+############### Install Xmonad (Tiling Window Manager)
+    ##### Install Packages
+    ##### alacritty - terminal 
+    ##### xwallpaper - background set app
+    ##### nitrogen - background chooser
+    ##### picom -transparency compositor
+    sudo nala install xmonad xmobar alacritty xwallpaper nitrogen picom -y 2>&1
+    [ ! -d ~/.config/xmobar ] && mkdir -p ~/.config/xmobar
+    [ ! -d ~/.config/xmonad ] && mkdir -p ~/.config/xmonad
+    cp $INSTALL_PATH/configs/xmonad/xmobarrc ~/.config/xmobar/
+    cp $INSTALL_PATH/configs/xmonad/haskell_20.xpm ~/.config/xmonad/
+    cp $INSTALL_PATH/configs/xmonad/xmonad.hs ~/.config/xmonad/
+    cp $INSTALL_PATH/configs/xmonad/xmonad_bg ~/.config/xmonad/.xmonad_bg
+    sudo cp $INSTALL_PATH/backgrounds/xmonad.png /usr/share/backgrounds/
+    sleep 2
+
+    xmonad_recompile() { \
+        echo "########################"
+        echo "## Recompiling XMonad ##"
+        echo "########################"
+        xmonad --recompile
+        sleep 2
+    }
+
+    xmonad_recompile || echo "Recompiling Xmonad failed!"	
+    sleep 5
+}
+
+setup_conky () {
+############### Install Conky/Settings and Widget Apps
+    ##### Install Packages
+    ##### conky-all - main conky system
+    ##### vnstat - network statistics
+    ##### psensor - graphical sensor monitor
+    ##### tree - helps determine system monitors for conky
+    sudo nala install conky-all vnstat psensor tree -y 2>&1
+
+    clear
+    echo ""
+    PS3="Select the conky file to use: "
+
+    clear
+    echo "" 2>&1 | tee -a $LOG
+    echo "" 2>&1 | tee -a $LOG
+
+    select opt in vm e6530 macbookpro macpro quit; do
+
+      case $opt in
+        vm)
+          cp $INSTALL_PATH/configs/conky/.conkyrc_vm ~/.conkyrc 2>&1 | tee -a $LOG
+          break
+          ;;
+        e6530)
+          cp $INSTALL_PATH/configs/conky/.conkyrc_e6530 ~/.conkyrc 2>&1 | tee -a $LOG
+          break
+          ;;
+        macbookpro)
+          cp $INSTALL_PATH/configs/conky/.conkyrc_macbookpro ~/.conkyrc 2>&1 | tee -a $LOG
+          break
+          ;;
+        macpro)
+          cp $INSTALL_PATH/configs/conky/.conkyrc_macpro ~/.conkyrc 2>&1 | tee -a $LOG
+          break
+          ;;
+        quit)
+          break
+          ;;
+        *)
+          echo "Invalid option $REPLY" 2>&1 | tee -a $LOG
+          ;;
+      esac
+    done
+
+    cp $INSTALL_PATH/configs/autostart/conky.desktop ~/.config/autostart/ 2>&1 | tee -a $LOG
+
+    sudo cp $INSTALL_PATH/configs/conky/sun-hours_etc_cron.daily /etc/cron.daily/sun-hours 2>&1 | tee -a $LOG
+    sudo chown root:root /etc/cron.daily/sun-hours 2>&1 | tee -a $LOG 
+    sudo chmod 755 /etc/cron.daily/sun-hours 2>&1 | tee -a $LOG
+
+    sudo cp $INSTALL_PATH/configs/conky/sun-hours_usr_local_bin /usr/local/bin/sun-hours 2>&1 | tee -a $LOG
+    sudo chown root:root /usr/local/bin/sun-hours 2>&1 | tee -a $LOG
+    sudo chmod 755 /usr/local/bin/sun-hours 2>&1 | tee -a $LOG
+
+    echo "" 2>&1 | tee -a $LOG
+    echo "" 2>&1 | tee -a $LOG
+    echo Getting current Sunset and Sunrise times...  Please be patient... 2>&1 | tee -a $LOG
+    sudo /usr/local/bin/sun-hours 2>&1 | tee -a $LOG
+    sleep 10
+}
+
+setup_grub () {
+############### Configure Grub For Single Boot / Dual Boot
+    clear
+    echo ""
+    PS3=" Select the current OS: "
+
+    clear
+    echo "" 2>&1 | tee -a $LOG
+    echo "" 2>&1 | tee -a $LOG
+
+    select opt in LMDE MINT QUIT; do
+
+      case $opt in
+        LMDE)
+          echo "" 2>&1 | tee -a $LOG
+          echo  Modifying Grub Menu to not display...  Please be patient... 2>&1 | tee -a $LOG
+          echo "" 2>&1 | tee -a $LOG
+          echo "" 2>&1 | tee -a $LOG
+          sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub 2>&1 | tee -a $LOG
+          sudo update-grub 2>&1 | tee -a $LOG
+          sleep 2
+          break
+          ;;
+        MINT)
+          echo "" 2>&1 | tee -a $LOG
+          echo " NOTICE: MINT is set to 0 Timeout by Default...  No changes necessary..." 2>&1 | tee -a $LOG
+          sleep 3
+          break
+          ;;
+        QUIT)
+          break
+          ;;
+        *)
+          echo "Invalid option $REPLY" 2>&1 | tee -a $LOG
+          ;;
+      esac
+    done
+    sleep 5
+}
+
+ppa_connect () {
+    if whiptail --title "Connect to NAS Server" --yesno "Connect to PPA (Personal Package Archive)?" 8 78; then
+	
+        NAS_USER=$(whiptail --inputbox "Enter NAS User" 8 39 --title "NAS User" 3>&1 1>&2 2>&3)
+        exitstatus=$?
+        if [ $exitstatus = 0 ]; then
+            echo "NAS User entered as " $NAS_USER
+        else
+            echo "User selected Cancel."
+        fi
+        echo "(Exit status was $exitstatus)"
+
+        NAS_IP=$(whiptail --inputbox "Enter NAS IP" 8 39 --title "NAS IP" 3>&1 1>&2 2>&3)
+        exitstatus=$?
+        if [ $exitstatus = 0 ]; then
+            echo "NAS IP entered as " $NAS_IP
+        else
+            echo "User selected Cancel."
+        fi
+        echo "(Exit status was $exitstatus)"
+
+        NAS_SHARE=$(whiptail --inputbox "Enter NAS Share" 8 39 --title "NAS Share" 3>&1 1>&2 2>&3)
+        exitstatus=$?
+        if [ $exitstatus = 0 ]; then
+            echo "NAS Share entered as " $NAS_SHARE
+        else
+            echo "User selected Cancel."
+        fi
+        echo "(Exit status was $exitstatus)"
+
+        NAS_PASS=$(whiptail --passwordbox "Please enter your NAS Password" 8 78 --title "NAS Password" 3>&1 1>&2 2>&3)
+        exitstatus=$?
+        if [ $exitstatus == 0 ]; then
+            echo "User selected Ok and entered password"
+        else
+            echo "User selected Cancel."
+        fi
+        echo "(Exit status was $exitstatus)"
+
+        if whiptail --title "Are NAS Connection Settings Correct?" --yesno " NAS User = $NAS_USER \n NAS IP = $NAS_IP \n NAS Share = $NAS_SHARE " 11 78; then
+            clear
+            echo ""
+            echo ""
+            echo " Please be patient while PPA - Personal Package Archive is downloaded to packages folder"
+            echo ""
+            cd packages/
+            smbget -R smb://$NAS_IP/$NAS_SHARE/build_mint/packages/ --user $NAS_USER%$NAS_PASS
+            sleep 5
+            clear
+        else
+            echo "User selected No, exit status was $?."
+        fi
+
+    ### PPA INSTALL VIRTUALBOX
+    if whiptail --title "Install VirtualBox" --yesno "Install VirtualBox?" 8 78; then
+        ppa_install_virtualbox
+    else
+        echo "User selected No, exit status was $?."
+    fi
+
+	### PPA INSTALL POWERSHELL
+	if whiptail --title "Install PowerShell" --yesno "Install PowerShell?" 8 78; then
+	    ppa_install_powershell
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### PPA INSTALL CODE
+	if whiptail --title "Install VS Code" --yesno "Install VS Code?" 8 78; then
+	    ppa_install_code
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### PPA INSTALL BALENAETHCER
+	if whiptail --title "Install BalenaEtcher" --yesno "Install BalenaEtcher?" 8 78; then
+	    ppa_install_balenaetcher
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### PPA INSTALL MONEYDANCE
+	if whiptail --title "Install MoneyDance" --yesno "Install MoneyDance?" 8 78; then
+	    ppa_install_moneydance
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### PPA INSTALL INSYNC
+	if whiptail --title "Install Insync" --yesno "Install Insync?" 8 78; then
+	    ppa_install_insync
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### PPA INSTALL CHERRYTREE
+	if whiptail --title "Install CherryTree" --yesno "Install CherryTree?" 8 78; then
+	    ppa_install_cherrytree
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### PPA INSTALL TEAMVIEWER
+	if whiptail --title "Install TeamViewer" --yesno "Install TeamViewer?" 8 78; then
+	    ppa_install_teamviewer
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### EXTRA INSTALL BRAVE-BROWSER
+	if whiptail --title "Install Brave-Browser" --yesno "Install Brave-Browser?" 8 78; then
+	    extra_install_brave
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### EXTRA INSTALL CHROME
+	if whiptail --title "Install Chrome" --yesno "Install Chrome?" 8 78; then
+	    extra_install_chrome
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### EXTRA INSTALL PORFOLIO-PERFORMANCE
+	if whiptail --title "Install Portfolio-Performance" --yesno "Install Portfolio-Performance?" 8 78; then
+	    extra_install_portfolio_performance
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+
+    else
+        echo "User selected No, exit status was $?."
+    fi
+
+cd ..
+
+}
+
+setup_extras () {
+    if whiptail --title "Setup Extras?" --yesno "Setup Extras?" 8 78; then
+
+	### SETUP POLYBAR AND APPS
+	if whiptail --title "Setup Polybar & Apps" --yesno "Setup Polybar & Apps?" 8 78; then
+	    setup_polybar
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### SETUP XMONAD
+	if whiptail --title "Setup Xmonad" --yesno "Setup Xmonad?" 8 78; then
+	    setup_xmonad
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### SETUP CONKY
+	if whiptail --title "Setup Conky" --yesno "Setup Conky?" 8 78; then
+	    setup_conky
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+	### SETUP GRUB
+	if whiptail --title "Setup Grub" --yesno "Setup Grub?" 8 78; then
+	    setup_grub
+	else
+	    echo "User selected No, exit status was $?."
+	fi
+
+
+    else
+        echo "User selected No, exit status was $?."
+    fi
+
+cd ..
+
+}
+
+
+#######################################################################################################
+#################################### START OF INSTALLATION PROCESS ####################################
+#######################################################################################################
+############### Update Packages and Source Lists
+clear
+echo "" 2>&1 | tee -a $LOG
+echo "Updating Current Packages and Source Lists...  Please be patient..." 2>&1 | tee -a $LOG
+echo ""
+echo Please enter sudo password when prompted to Update Current Packages...
+sleep 2
+sudo apt-get install nala -y 2>&1 | tee -a $LOG
+sudo nala fetch 2>&1
+sudo nala update 2>&1
+sudo nala upgrade -y 2>&1
+sleep 5
+
+############### Install Base Packages & Setup Base Paths and Files
+clear
+### CURL?????
+sudo nala install alacritty curl dos2unix exa fish fonts-powerline openssh-server vim xrdp sxhkd gxmessage -y 2>&1
+sudo adduser xrdp ssl-cert 2>&1 | tee -a $LOG
+[ ! -d ~/.config/alacritty ] && mkdir -p ~/.config/alacritty 2>&1 | tee -a $LOG
+[ ! -d ~/.config/sxhkd ] && mkdir -p ~/.config/sxhkd 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/alacritty/alacritty.yml ~/.config/alacritty/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/.bashrc ~/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/.vimrc ~/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/keybindings ~/keybindings 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/sxhkd/sxhkdrc ~/.config/sxhkd/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/autostart/sxhkd.desktop ~/.config/autostart/ 2>&1 | tee -a $LOG
+unzip $INSTALL_PATH/packages/synth-shell.zip -d $INSTALL_PATH/packages/ 2>&1 | tee -a $LOG
+clear
+echo -ne "
+  Synth-Shell Install Options
+  NOTE: Type entry, but don't press enter...
+================================================
+  install   =  i (default)
+  user	    =  u (default)
+  greeter   =  n
+  prompt    =  Y (default)
+  b-ls      =  n
+  alias     =  n
+  b-history =  n	
+"
+echo ""
+echo " Synth-Shell Install will launch in 5 seconds..."
+sleep 5
+$INSTALL_PATH/packages/synth-shell/setup.sh 2>&1 | tee -a $LOG
+sleep 5
+
+############### Setup Settings, Taskbar and Background Image
+clear
+echo "" 2>&1 | tee -a $LOG
+echo Setting up Settings, Taskbar and Background...  Please be patient... 2>&1 | tee -a $LOG
+echo "" 2>&1 | tee -a $LOG
+echo "" 2>&1 | tee -a $LOG
+##### 13.json	Custom Date Format
+##### 2.json	Taskbar Icons
+cp $INSTALL_PATH/configs/cinnamon/13.json ~/.config/cinnamon/spices/calendar@cinnamon.org/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/cinnamon/2.json ~/.config/cinnamon/spices/grouped-window-list@cinnamon.org/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/backgrounds/linuxmint.png ~/Pictures/ 2>&1 | tee -a $LOG
+##### You can list gsettings with some of the following commands
+##### list all and grep for keyword
+##### gsettings list-recursively | grep <keyword>
+##### gsettings list-recursively org.cinnamon.settings-daemon.plugins.power
+gsettings set org.cinnamon.desktop.background picture-uri 'file:///usr/share/backgrounds/linuxmint/ktee_linuxmint.png' 2>&1 | tee -a $LOG
+gsettings set org.cinnamon.desktop.interface clock-use-24h false 2>&1 | tee -a $LOG
+gsettings set org.cinnamon.desktop.session idle-delay 0 2>&1 | tee -a $LOG
+gsettings set org.gnome.settings-daemon.plugins.power idle-dim false 2>&1 | tee -a $LOG
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0 2>&1 | tee -a $LOG
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing' 2>&1 | tee -a $LOG
+##### The Following Commands Work on LMDE
+gsettings set org.cinnamon.settings-daemon.plugins.power sleep-display-ac 0 2>&1 | tee -a $LOG
+gsettings set org.cinnamon.settings-daemon.plugins.power button-power 'nothing' 2>&1 | tee -a $LOG
+gsettings set org.cinnamon.desktop.privacy remember-recent-files false 2>&1 | tee -a $LOG
+sleep 10
+
+############### Run Functions
+browsers
+otherinternet
+devops
+graphics
+multimedia
+office
+utilities
+games
+educational
+ppa_connect
+setup_extras
+
+
+################################################################################
+#################################### To Do #####################################
+################################################################################
+Load Fish?
+Timeshift?
+
+
+#####################################################################################
+#################################### LOG NOTICE #####################################
+#####################################################################################
+clear
+echo "" 2>&1 | tee -a $LOG
+echo "" 2>&1 | tee -a $LOG
+echo " NOTICE -- When Searching Logs, the following keywords are useful (unmet and notice)" 2>&1 | tee -a $LOG
+echo "" 2>&1 | tee -a $LOG
+echo "" 2>&1 | tee -a $LOG
+sleep 10
+
+
+############### Setup is Complete - Reboot the Machine NOW
+clear
+echo ""
+read -p "Setup is Complete - Reboot the Machine NOW (y/n)? "
+if [ "$REPLY" = "y" ]; then
+
+  echo "" 2>&1 | tee -a $LOG
+  echo Rebooting Now... 2>&1 | tee -a $LOG
+  sudo reboot 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+exit

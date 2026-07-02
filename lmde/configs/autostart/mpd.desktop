@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=mpd
+NoDisplay=false
+Hidden=false
+Name[en_US]=StartupMPD
+Comment[en_US]=Music Player Daemon

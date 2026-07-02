@@ -1,0 +1,1184 @@
+#!/usr/bin/env bash
+# NAME: JTOS
+# DESC: An installation and deployment script for JaxTech's Mint Cinnamon desktop.
+# Adapted from Derek Taylor's (DistroTube) DTOS script...
+# Top logo inspiration came from Chris Titus's ArchTitus script...
+
+INSTALL_PATH=$(pwd)
+LOG=$INSTALL_PATH/setup.log
+rm $LOG > /dev/null 2>&1
+
+clear
+
+echo -ne "
+   ████████╗  █████╗  ██╗   ██╗  ████████╗ ███████╗  ██████╗ ██╗  ██╗
+   ╚══██╔══╝ ██╔══██╗  ██╗ ██╔╝  ╚══██╔══╝ ██╔════╝ ██╔════╝ ██║  ██║
+      ██║    ███████║   ████╔╝      ██║    ███████╗ ██║      ███████║
+   ██ ██║    ██╔══██║  ██╔╝██╗      ██║    ██╔════╝ ██║      ██╔══██║
+   ╚███╔╝    ██║  ██║ ██╔╝  ██╗     ██║    ███████╗ ╚██████╗ ██║  ██║
+    ╚══╝     ╚═╝  ╚═╝ ╚═╝   ╚═╝     ╚═╝    ╚══════╝  ╚═════╝ ╚═╝  ╚═╝
+"
+echo ""
+echo " JTOS Setup Script will launch in 5 seconds..."
+
+sleep 5
+
+############### Setup Timeshift
+clear
+echo ""
+read -p "Does this machine have plenty of drive space for timeshift setup...  Say NO for Virtual Machine setup... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Setting up Timeshift and taking first snapshot...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo timeshift --create --rsync --comment "Base Install Snapshot" --yes 2>&1 | tee -a $LOG
+  sudo sed -i 's/"schedule_weekly" : "false"/"schedule_weekly" : "true"/g' /etc/timeshift/timeshift.json 2>&1 | tee -a $LOG
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Updating Current Packages and Source Lists
+clear
+echo "" 2>&1 | tee -a $LOG
+echo "Updating Current Packages and Source Lists...  Please be patient..." 2>&1 | tee -a $LOG
+echo ""
+echo Please enter sudo password when prompted to Update Current Packages...
+sleep 2
+sudo sed -i 's/http:\/\/packages.linuxmint.com/https:\/\/mirror.cs.jmu.edu\/pub\/linuxmint\/packages/g' /etc/apt/sources.list.d/official-package-repositories.list 2>&1 | tee -a $LOG
+sudo sed -i 's/http:\/\/archive.ubuntu.com\/ubuntu/http:\/\/mirror.clarkson.edu\/ubuntu/g' /etc/apt/sources.list.d/official-package-repositories.list 2>&1 | tee -a $LOG
+sudo apt update 2>&1 | tee -a $LOG
+sudo apt upgrade -y 2>&1 | tee -a $LOG
+sleep 2
+
+############### Installing BASE Software Packages
+clear
+echo "" 2>&1 | tee -a $LOG
+echo "Installing BASE Software Packages...  Please be patient..." 2>&1 | tee -a $LOG
+sleep 3
+sudo apt install openssh-server -y 2>&1 | tee -a $LOG
+sleep 2
+clear
+sudo apt install vim -y 2>&1 | tee -a $LOG
+sleep 2
+clear
+sudo apt install alacritty -y 2>&1 | tee -a $LOG
+sleep 2
+clear
+sudo apt install exa -y 2>&1 | tee -a $LOG
+sleep 2
+clear
+sudo apt install fish -y 2>&1 | tee -a $LOG
+sleep 2
+clear
+sudo apt install fonts-powerline -y 2>&1 | tee -a $LOG
+sleep 2
+clear
+sudo apt install dos2unix -y 2>&1 | tee -a $LOG
+sleep 2
+clear
+### Allows RDP Connections to Linux
+sudo apt install xrdp -y 2>&1 | tee -a $LOG
+sudo adduser xrdp ssl-cert 2>&1 | tee -a $LOG
+sleep 2
+
+############### Setup Base Paths and Files
+[ ! -d ~/.config/alacritty ] && mkdir -p ~/.config/alacritty 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/alacritty/alacritty.yml ~/.config/alacritty/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/.bashrc ~/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/.vimrc ~/ 2>&1 | tee -a $LOG
+unzip $INSTALL_PATH/packages/synth-shell.zip -d $INSTALL_PATH/packages/ 2>&1 | tee -a $LOG
+clear
+echo -ne "
+  Synth-Shell Install Options
+  NOTE: Type entry, but don't press enter...
+================================================
+  install   =  i (default)
+  user	    =  u (default)
+  greeter   =  n
+  prompt    =  Y (default)
+  b-ls      =  n
+  alias     =  n
+  b-history =  n	
+"
+echo ""
+echo " Synth-Shell Install will launch in 5 seconds..."
+sleep 5
+$INSTALL_PATH/packages/synth-shell/setup.sh 2>&1 | tee -a $LOG
+sleep 5
+
+############### Setup Settings, Taskbar and Background Image
+clear
+echo "" 2>&1 | tee -a $LOG
+echo Setting up Settings, Taskbar and Background...  Please be patient... 2>&1 | tee -a $LOG
+echo "" 2>&1 | tee -a $LOG
+echo "" 2>&1 | tee -a $LOG
+##### 13.json	Custom Date Format
+##### 2.json	Taskbar Icons
+cp $INSTALL_PATH/configs/cinnamon/13.json ~/.config/cinnamon/spices/calendar@cinnamon.org/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/cinnamon/2.json ~/.config/cinnamon/spices/grouped-window-list@cinnamon.org/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/backgrounds/linuxmint.png ~/Pictures/ 2>&1 | tee -a $LOG
+gsettings set org.cinnamon.desktop.background picture-uri 'file:///usr/share/backgrounds/linuxmint/ktee_linuxmint.png' 2>&1 | tee -a $LOG
+gsettings set org.cinnamon.desktop.interface clock-use-24h false 2>&1 | tee -a $LOG
+gsettings set org.cinnamon.desktop.session idle-delay 0 2>&1 | tee -a $LOG
+gsettings set org.gnome.settings-daemon.plugins.power idle-dim false 2>&1 | tee -a $LOG
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0 2>&1 | tee -a $LOG
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing' 2>&1 | tee -a $LOG
+sleep 5
+
+############### Install Virtual Box
+clear
+echo ""
+read -p "Install Virtual Box and Guest Additions... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+
+  PS3=" Select the current OS: "
+
+  clear
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+
+  select opt in LMDE MINT QUIT; do
+
+    case $opt in
+      LMDE)
+        echo "" 2>&1 | tee -a $LOG
+        echo Installing virtualbox-7.0 on LMDE...  Please be patient... 2>&1 | tee -a $LOG 
+        echo "" 2>&1 | tee -a $LOG
+        echo "" 2>&1 | tee -a $LOG
+        echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian bookworm contrib' | sudo tee -a /etc/apt/sources.list 2>&1 | tee -a $LOG
+        wget -O- https://www.virtualbox.org/download/oracle_vbox_2016.asc | sudo gpg --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg --dearmor 2>&1 | tee -a $LOG
+        sudo apt update 2>&1 | tee -a $LOG
+        sudo apt install virtualbox-7.0 -y 2>&1 | tee -a $LOG
+        echo "" 2>&1 | tee -a $LOG
+        echo "" 2>&1 | tee -a $LOG
+        echo NOTICE -- LMDE does NOT include virtualbox-ext-pack... 2>&1 | tee -a $LOG
+        echo NOTICE -- LMDE does NOT include virtualbox-guest-additions-iso compatible with VirtualBox-7.0... 2>&1 | tee -a $LOG
+        sleep 15
+        break
+        ;;
+      MINT)
+        echo "" 2>&1 | tee -a $LOG
+        echo Installing virtualbox on Mint...  Please be patient... 2>&1 | tee -a $LOG
+        echo "" 2>&1 | tee -a $LOG
+        echo "" 2>&1 | tee -a $LOG
+        sudo apt install virtualbox -y 2>&1 | tee -a $LOG
+        sudo apt install virtualbox-guest-additions-iso -y 2>&1 | tee -a $LOG
+        echo "" 2>&1 | tee -a $LOG
+        echo "" 2>&1 | tee -a $LOG
+        echo NOTICE -- Install virtualbox-ext-pack after script run... 2>&1 | tee -a $LOG
+        sleep 10
+        break
+        ;;
+      QUIT)
+        break
+        ;;
+      *)
+        echo "Invalid option $REPLY" 2>&1 | tee -a $LOG
+        ;;
+    esac
+  done
+
+else
+	cancel
+fi
+
+############### Install Docker
+clear
+echo ""
+read -p "Install Docker... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing docker...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install docker.io -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install ADB Tools (Android Debug Bridge)
+clear
+echo ""
+read -p "Install ADB Tools (Android Debug Bridge)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo "Installing ADB Tools (Android Debug Bridge)...  Please be patient..." 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install adb fastboot -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install gtkHash
+clear
+echo ""
+read -p "Install gtkHash... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing gtkhash...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install gtkhash -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install KeePass2
+clear
+echo ""
+read -p "Install KeePass2... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing keepass2...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install keepass2 -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install Kleopatra (PGP/GPG Software)
+clear
+echo ""
+read -p "Install Kleopatra (PGP/GPG Software)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing kleopatra...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install kleopatra -y 2>&1 | tee -a $LOG
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install Brasero (CD/DVD/ISO Burner)
+clear
+echo ""
+read -p "Install Brasero (CD/DVD/ISO Burner)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing brasero...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install brasero -y 2>&1 | tee -a $LOG
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install Font-Manager
+clear
+echo ""
+read -p "Install Font-Manager... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing font-manager...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install font-manager -y 2>&1 | tee -a $LOG
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install Cheese (Camera Software)
+clear
+echo ""
+read -p "Install Cheese (Camera Software)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing cheese...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install cheese -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install guvcview (Camera Software)
+clear
+echo ""
+read -p "Install guvcview (Camera Software)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing guvcview...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install guvcview -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install Scribus (Desktop Publishing Tool)
+clear
+echo ""
+read -p "Install Scribus (Desktop Publishing Tool)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing scribus...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install scribus -y 2>&1 | tee -a $LOG
+  sudo apt install scribus-template -y 2>&1 | tee -a $LOG
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install Okular (PDF and Document Reader)
+clear
+echo ""
+read -p "Install Okular (PDF and Document Reader)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing okular...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install okular -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install PDFarranger (PDF Manipulation Tool)
+clear
+echo ""
+read -p "Install PDFarranger (PDF Manipulation Tool)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing pdfarranger...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install pdfarranger -y 2>&1 | tee -a $LOG
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install gFTP
+clear
+echo ""
+read -p "Install gFTP... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing gftp...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install gftp -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install Remmina (GUI for SSH and RDP Connections) 
+clear
+echo ""
+read -p "Install Remmina (GUI Management for SSH and RDP Connections)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing remmina...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install remmina -y 2>&1 | tee -a $LOG
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install Handbrake
+clear
+echo ""
+read -p "Install Handbrake... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing handbrake...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install handbrake -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install VLC (Media Player)
+clear
+echo ""
+read -p "Install VLC (Media Player)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing vlc...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install vlc -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install OpenShot (Video Editor)
+clear
+echo ""
+read -p "Install OpenShot (Video Editor)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing openshot-qt...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install openshot-qt -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install OBS-Studio (Video Editor & Streaming)
+clear
+echo ""
+read -p "Install OBS-Studio (Video Editor & Streaming)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing obs-studio...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install obs-studio -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install GIMP (GNU Image Manipulation Program)
+clear
+echo ""
+read -p "Install GIMP (GNU Image Manipulation Program)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing gimp...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install gimp -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install Krita (Professional Paint Program)
+clear
+echo ""
+read -p "Install Krita (Professional Paint Program)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing krita...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install krita -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install InkScape (Vector Graphics Editor)
+clear
+echo ""
+read -p "Install InkScape (Vector Graphics Editor)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing inkscape...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install inkscape -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install DigiKam (Photo Management Software)
+clear
+echo ""
+read -p "Install DigiKam (Photo Management Software)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing digikam...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install digikam -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install cMatrix (turns terminal into matrix terminal)
+clear
+echo ""
+read -p "Install cMatrix (turns terminal into matrix terminal)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing cmatrix...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install cmatrix -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install Frozen Bubble (Game)
+clear
+echo ""
+read -p "Install Frozen Bubble (Game)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing frozen-bubble...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install frozen-bubble -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install Pingus (Game)
+clear
+echo ""
+read -p "Install Pingus (Game)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing pingus...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install pingus -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install Steam (Gaming Platform)
+clear
+echo ""
+read -p "Install Steam (Gaming Platform)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing steam...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install steam -y 2>&1 | tee -a $LOG
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install BibleTime (Bible App)
+clear
+echo ""
+read -p "Install BibleTime (Bible App)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing bibletime...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install bibletime -y 2>&1 | tee -a $LOG
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install Xiphos (Bible App)
+clear
+echo ""
+read -p "Install Xiphos (Bible App)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing xiphos...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install xiphos -y 2>&1 | tee -a $LOG
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install Python3-Pip and Python3-TKinter
+clear
+echo ""
+read -p "Install Python3-Pip and Python3-TKinter... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing python3-pip and python3-tk...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install python3-pip -y 2>&1 | tee -a $LOG
+  sudo apt install python3-tk -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install SQLitebrowser
+clear
+echo ""
+read -p "Install SQLitebrowser... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing sqlitebrowser...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install sqlitebrowser -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install Chrome (Web Browser)
+clear
+echo ""
+read -p "Install Chrome (Web Browser)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Downloading and installing chrome...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  ### libu2f-udev is a required dependency
+  sudo apt install libu2f-udev -y 2>&1 | tee -a $LOG
+  cd packages
+  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb 2>&1 | tee -a $LOG
+  sudo dpkg -i google-chrome-stable_current_amd64.deb 2>&1 | tee -a $LOG
+  cd ..
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install Falkon (Web Browser)
+clear
+echo ""
+read -p "Install Falkon (Web Browser)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing falkon...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install falkon -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install NotePadQQ
+clear
+echo ""
+read -p "Install NotePadQQ... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing notepadqq...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install notepadqq -y 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+############### Install Sublime-Text (Licensed Software)
+clear
+echo ""
+read -p "Install Sublime-Text (Licensed Software)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo "Downloading and installing Sublime-Text...  Please be patient..." 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install sublime-text -y 2>&1 | tee -a $LOG
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install Local NAS Software from (a_build) Folder
+clear
+echo ""
+read -p "Do you want to connect to local NAS Storage to install software... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+
+  read -p "Enter User for NAS:  " nas_user
+  read -p "Enter IP Address of NAS:  " nas_ip
+  read -p "Enter Share for NAS: (i.e. linux) " nas_share
+
+  echo "" 2>&1 | tee -a $LOG
+  echo "Connecting to NAS and Downloading contents...  Please be patient..." 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "The username entered is: $nas_user" 2>&1 | tee -a $LOG
+  echo "The IP entered is: $nas_ip" 2>&1 | tee -a $LOG
+  echo "The Share entered is: $nas_share" 2>&1 | tee -a $LOG
+
+  cd packages/
+  smbget -R smb://$nas_user@$nas_ip/$nas_share/build_mint 2>&1 | tee -a $LOG
+  sleep 2
+
+    clear
+    ##### Updates are at https://github.com/PowerShell/PowerShell/releases/latest
+    ##### Download the amd64.deb package
+    echo ""
+    read -p "Install powershell_7.4.5-1.deb_amd64.deb Package... (y/n)? "
+    if [ "$REPLY" = "y" ]; then
+	
+      echo "" 2>&1 | tee -a $LOG
+      echo Installing powershell_7.4.5-1.deb_amd64.deb Package...  Please be patient... 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      sudo dpkg -i powershell_7.4.5-1.deb_amd64.deb 2>&1 | tee -a $LOG
+      sleep 2
+
+    else
+	    cancel
+    fi
+
+    clear
+    ##### Updates are at https://code.visualstudio.com/Download#
+    ##### Download the amd64.deb package
+    echo ""
+    read -p "Install code_1.92.2-1723660989_amd64.deb Package... (y/n)? "
+    if [ "$REPLY" = "y" ]; then
+	
+      echo "" 2>&1 | tee -a $LOG
+      echo Installing code_1.92.2-1723660989_amd64.deb Package...  Please be patient... 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      sudo dpkg -i code_1.92.2-1723660989_amd64.deb 2>&1 | tee -a $LOG
+      sleep 2
+
+    else
+	    cancel
+    fi
+
+    clear
+    ##### Updates are at https://github.com/balena-io/etcher/releases/
+    ##### Download the amd64.deb package
+    echo ""
+    read -p "Install balena-etcher_1.19.21_amd64.deb Package... (y/n)? "
+    if [ "$REPLY" = "y" ]; then
+	
+      echo "" 2>&1 | tee -a $LOG
+      echo Installing balena-etcher_1.19.21_amd64.deb Package...  Please be patient... 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      [ ! -d /opt/balenaEtcher ] && sudo mkdir -p /opt/balenaEtcher 2>&1 | tee -a $LOG
+      sudo touch /opt/balenaEtcher/chrome-sandbox 2>&1 | tee -a $LOG
+      sudo apt install gconf-service -y 2>&1 | tee -a $LOG
+      sudo apt install gconf2 -y 2>&1 | tee -a $LOG
+      sudo apt install libgdk-pixbuf2.0-0 -y 2>&1 | tee -a $LOG
+      sudo dpkg -i balena-etcher_1.19.21_amd64.deb 2>&1 | tee -a $LOG
+      sleep 2
+
+    else
+	    cancel
+    fi
+
+    clear
+    ##### Updates are at https://infinitekind.com/download-moneydance-personal-finance-software
+    ##### Download the amd64.deb package
+    echo ""
+    read -p "Install moneydance_linux_amd64.deb Package... (y/n)? "
+    if [ "$REPLY" = "y" ]; then
+	
+      echo "" 2>&1 | tee -a $LOG
+      echo Installing moneydance_linux_amd64.deb Package...  Please be patient... 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      sudo dpkg -i moneydance_linux_amd64.deb 2>&1 | tee -a $LOG
+      sleep 2
+
+    else
+	    cancel
+    fi
+
+    clear
+    ##### Updates are at https://symless.com/synergy/download/8
+    ##### Download the Debian 12 (x64) package (Licensed for version 1)
+    echo ""
+    read -p "Install synergy_1.14.5-stable.1b7140f2_ubuntu22_amd64.deb Package... (y/n)? "
+    if [ "$REPLY" = "y" ]; then
+	
+      echo "" 2>&1 | tee -a $LOG
+      echo Installing synergy_1.14.5-stable.1b7140f2_ubuntu22_amd64.deb Package...  Please be patient... 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      sudo dpkg -i synergy_1.14.5-stable.1b7140f2_ubuntu22_amd64.deb 2>&1 | tee -a $LOG
+      sleep 2
+
+    else
+	    cancel
+    fi
+
+    clear
+    echo ""
+    read -p "Install insync_3.9.4.60020-bookworm_amd64.deb Package... (y/n)? "
+    if [ "$REPLY" = "y" ]; then
+	
+      echo "" 2>&1 | tee -a $LOG
+      echo Installing insync_3.9.4.60020-bookworm_amd64.deb Package...  Please be patient... 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      sudo dpkg -i insync_3.9.4.60020-bookworm_amd64.deb 2>&1 | tee -a $LOG
+      sleep 2
+
+    else
+	    cancel
+    fi
+
+    clear
+    echo ""
+    read -p "Install teamviewer_15.58.4_amd64.deb Package... (y/n)? "
+    if [ "$REPLY" = "y" ]; then
+	
+      echo "" 2>&1 | tee -a $LOG
+      echo Installing teamviewer_15.58.4_amd64.deb Package...  Please be patient... 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      echo "" 2>&1 | tee -a $LOG
+      sudo dpkg -i teamviewer_15.58.4_amd64.deb 2>&1 | tee -a $LOG
+      sleep 2
+
+    else
+	    cancel
+    fi
+
+
+    cd ..
+
+else
+	cancel
+fi
+
+############### Install Polybar & Apps
+clear
+echo ""
+read -p "Install Polybar, Rofi, & MPD... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo "Downloading and installing Polybar and Apps...  Please be patient..." 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install polybar mpd mpc ncmpcpp rofi -y 2>&1 | tee -a $LOG
+  sudo cp -r $INSTALL_PATH/fonts/jaxtech /usr/share/fonts/ 2>&1 | tee -a $LOG
+  sudo cp $INSTALL_PATH/scripts/* /usr/local/bin/ 2>&1 | tee -a $LOG
+  [ ! -d ~/.config/mpd ] && mkdir -p ~/.config/mpd 2>&1 | tee -a $LOG
+  [ ! -d ~/.config/ncmpcpp ] && mkdir -p ~/.config/ncmpcpp 2>&1 | tee -a $LOG
+  [ ! -d ~/.config/polybar ] && mkdir -p ~/.config/polybar 2>&1 | tee -a $LOG
+  [ ! -d ~/.config/rofi ] && mkdir -p ~/.config/rofi 2>&1 | tee -a $LOG
+  cp $INSTALL_PATH/configs/autostart/mpd.desktop ~/.config/autostart/ 2>&1 | tee -a $LOG
+  cp $INSTALL_PATH/configs/autostart/polybar.desktop ~/.config/autostart/ 2>&1 | tee -a $LOG
+  cp $INSTALL_PATH/configs/mpd/* ~/.config/mpd/ 2>&1 | tee -a $LOG
+  cp $INSTALL_PATH/configs/ncmpcpp/* ~/.config/ncmpcpp/ 2>&1 | tee -a $LOG
+  cp $INSTALL_PATH/configs/polybar/* ~/.config/polybar/ 2>&1 | tee -a $LOG
+  cp -r $INSTALL_PATH/configs/rofi/* ~/.config/rofi/ 2>&1 | tee -a $LOG
+  cp -r $INSTALL_PATH/music/* ~/Music/ 2>&1 | tee -a $LOG
+  touch ~/.config/mpd/mpd.db 2>&1 | tee -a $LOG
+  touch ~/.config/mpd/mpd.log 2>&1 | tee -a $LOG
+  touch ~/.config/mpd/mpd.pid 2>&1 | tee -a $LOG
+  systemctl --user enable mpd.service
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install Xmonad (Tiling Window Manager)
+clear
+echo ""
+read -p "Install Xmonad (Tiling Window Manager)... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Install Xmonad...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  ##### Install Packages
+  ##### terminal - alacritty
+  ##### xwallpaper - background
+  ##### nitrogen - background chooser
+  ##### picom -transparency compositor
+  sudo apt install xmonad xmobar alacritty xwallpaper -y 2>&1 | tee -a $LOG  
+  [ ! -d ~/.config/xmobar ] && mkdir -p ~/.config/xmobar
+  [ ! -d ~/.config/xmonad ] && mkdir -p ~/.config/xmonad
+  cp $INSTALL_PATH/configs/xmonad/xmobarrc ~/.config/xmobar/
+  cp $INSTALL_PATH/configs/xmonad/haskell_20.xpm ~/.config/xmonad/
+  cp $INSTALL_PATH/configs/xmonad/xmonad.hs ~/.config/xmonad/
+  cp $INSTALL_PATH/configs/xmonad/xmonad_bg ~/.config/xmonad/.xmonad_bg
+  sudo cp $INSTALL_PATH/backgrounds/xmonad.png /usr/share/backgrounds/
+  sleep 2
+
+  xmonad_recompile() { \
+      echo "########################"
+      echo "## Recompiling XMonad ##"
+      echo "########################"
+      xmonad --recompile
+      sleep 2
+  }
+
+  xmonad_recompile || echo "Recompiling Xmonad failed!"	
+  sleep 2
+
+else
+	cancel
+fi
+
+############### Install Conky/Settings and Widget Apps
+clear
+echo ""
+read -p "Install Conky/Settings and Widget Apps... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+	
+  echo "" 2>&1 | tee -a $LOG
+  echo Installing conky and necessary helper apps...  Please be patient... 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  sudo apt install conky-all -y 2>&1 | tee -a $LOG
+  ### required by conky network statistics section
+  sudo apt install vnstat -y 2>&1 | tee -a $LOG
+  ### graphical sensor monitor
+  sudo apt install psensor -y 2>&1 | tee -a $LOG
+  ### helps determine system monitors for conky
+  sudo apt install tree -y 2>&1 | tee -a $LOG
+
+  PS3="Select the conky file to use: "
+
+  clear
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+
+  select opt in vm e6530 macbookpro macpro quit; do
+
+    case $opt in
+      vm)
+        cp $INSTALL_PATH/configs/conky/.conkyrc_vm ~/.conkyrc 2>&1 | tee -a $LOG
+        break
+        ;;
+      e6530)
+        cp $INSTALL_PATH/configs/conky/.conkyrc_e6530 ~/.conkyrc 2>&1 | tee -a $LOG
+        break
+        ;;
+      macbookpro)
+        cp $INSTALL_PATH/configs/conky/.conkyrc_macbookpro ~/.conkyrc 2>&1 | tee -a $LOG
+        break
+        ;;
+      macpro)
+        cp $INSTALL_PATH/configs/conky/.conkyrc_macpro ~/.conkyrc 2>&1 | tee -a $LOG
+        break
+        ;;
+      quit)
+        break
+        ;;
+      *)
+        echo "Invalid option $REPLY" 2>&1 | tee -a $LOG
+        ;;
+    esac
+  done
+
+  cp $INSTALL_PATH/configs/autostart/StartupConky.desktop ~/.config/autostart/ 2>&1 | tee -a $LOG
+
+  sudo cp $INSTALL_PATH/configs/conky/sun-hours_etc_cron.daily /etc/cron.daily/sun-hours 2>&1 | tee -a $LOG
+  sudo chown root:root /etc/cron.daily/sun-hours 2>&1 | tee -a $LOG
+  sudo chmod 755 /etc/cron.daily/sun-hours 2>&1 | tee -a $LOG
+
+  sudo cp $INSTALL_PATH/configs/conky/sun-hours_usr_local_bin /usr/local/bin/sun-hours 2>&1 | tee -a $LOG
+  sudo chown root:root /usr/local/bin/sun-hours 2>&1 | tee -a $LOG
+  sudo chmod 755 /usr/local/bin/sun-hours 2>&1 | tee -a $LOG
+
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+  echo Getting current Sunset and Sunrise times...  Please be patient... 2>&1 | tee -a $LOG
+  sudo /usr/local/bin/sun-hours 2>&1 | tee -a $LOG
+  sleep 10
+
+else
+	cancel
+fi
+
+############### Install NVidia 340 Drivers for Latitude E6530
+clear
+echo ""
+read -p "Is this a Dell Latitude E6530 that requires NVidia 340 Drivers... (y/n)? "
+if [ "$REPLY" = "y" ]; then
+
+  PS3=" Select the current OS: "
+
+  clear
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+
+  select opt in LMDE MINT QUIT; do
+
+    case $opt in
+      LMDE)
+        echo "" 2>&1 | tee -a $LOG
+        echo " NOTICE: No installation package for NVidia-340 on LMDE...  May need a manual install..." 2>&1 | tee -a $LOG
+        sleep 3
+        break
+        ;;
+      MINT)
+        echo "" 2>&1 | tee -a $LOG
+        echo " Installing NVidia-340 Drivers on MINT...  Please be patient..." 2>&1 | tee -a $LOG
+        echo "" 2>&1 | tee -a $LOG
+        echo "" 2>&1 | tee -a $LOG
+        sudo apt install nvidia-340 -y 2>&1 | tee -a $LOG
+        sleep 3
+        break
+        ;;
+      QUIT)
+        break
+        ;;
+      *)
+        echo "Invalid option $REPLY" 2>&1 | tee -a $LOG
+        ;;
+    esac
+  done
+
+else
+	cancel
+fi
+
+############### Configure Grub For Single Boot / Dual Boot
+clear
+echo ""
+read -p "Is this a Dual Boot Machine where the Grub Menu is needed to control the OS... (y/n)? "
+if [ "$REPLY" = "n" ]; then
+
+  PS3=" Select the current OS: "
+
+  clear
+  echo "" 2>&1 | tee -a $LOG
+  echo "" 2>&1 | tee -a $LOG
+
+  select opt in LMDE MINT QUIT; do
+
+    case $opt in
+      LMDE)
+        echo "" 2>&1 | tee -a $LOG
+        echo  Modifying Grub Menu to not display...  Please be patient... 2>&1 | tee -a $LOG
+        echo "" 2>&1 | tee -a $LOG
+        echo "" 2>&1 | tee -a $LOG
+        sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub 2>&1 | tee -a $LOG
+        sudo update-grub 2>&1 | tee -a $LOG
+        sleep 2
+        break
+        ;;
+      MINT)
+        echo "" 2>&1 | tee -a $LOG
+        echo " NOTICE: MINT is set to 0 Timeout by Default...  No changes necessary..." 2>&1 | tee -a $LOG
+        sleep 3
+        break
+        ;;
+      QUIT)
+        break
+        ;;
+      *)
+        echo "Invalid option $REPLY" 2>&1 | tee -a $LOG
+        ;;
+    esac
+  done
+
+else
+	cancel
+fi
+
+echo "" 2>&1 | tee -a $LOG
+echo "" 2>&1 | tee -a $LOG
+echo " NOTICE -- When Searching Logs, the following keywords are useful (unmet and notice)" 2>&1 | tee -a $LOG
+echo "" 2>&1 | tee -a $LOG
+echo "" 2>&1 | tee -a $LOG
+
+############### Setup is Complete - Reboot the Machine NOW
+clear
+echo ""
+read -p "Setup is Complete - Reboot the Machine NOW (y/n)? "
+if [ "$REPLY" = "y" ]; then
+
+  echo "" 2>&1 | tee -a $LOG
+  echo Rebooting Now... 2>&1 | tee -a $LOG
+  sudo reboot 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+exit
